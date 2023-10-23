@@ -1,4 +1,4 @@
-package com.yesgaori.campgaja.user;
+package com.yesgaori.campinggaja.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +12,12 @@ public class UserController {
 	public String login() {
 		
 		return "/user/login";
+	}
+	
+	@GetMapping("/join-view")
+	public String join() {
+		
+		return "/user/join";
 	}
 	
 }

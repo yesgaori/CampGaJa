@@ -1,4 +1,4 @@
-package com.yesgaori.campgaja.config;
+package com.yesgaori.campinggaja.config;
 
 import javax.sql.DataSource;
 

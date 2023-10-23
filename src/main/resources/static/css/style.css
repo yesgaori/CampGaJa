@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
-#wrap {
+.wrap {
 	width:1200px;
+	margin:0 auto;
 }
 
 header {
@@ -10,5 +11,9 @@ header {
 }
 
 .login {
-	height:600px;
+	height:700px;
+}
+
+.join {
+	height:700px;
 }

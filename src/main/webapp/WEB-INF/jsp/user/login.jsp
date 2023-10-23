@@ -19,10 +19,10 @@
 					<h5 class="mb-5 text-center">캠핑 가자 !</h5>
 				</div>
 				<div class="pt-5">
-					<input type="text" placeholder="아이디" class="form-control mb-2"><br>
-					<input type="password" placeholder="비밀번호" class="form-control mb-5"><br>
+					<input type="text" placeholder="아이디" class="form-control mb-2" id="loginIdInput"><br>
+					<input type="password" placeholder="비밀번호" class="form-control mb-5" id="passwordInput"><br>
 					<div class="d-flex justify-content-center mb-3">
-						<button type="button" class="btn btn-primary w-75">Login</button>
+						<button type="button" class="btn btn-primary w-75" id="loginBtn">Login</button>
 					</div>
 					<div class="d-flex justify-content-center">
 						<a href="/user/join-view">방문이 처음이신가요? 회원이 돼보세요</a>
@@ -44,7 +44,38 @@
 	<script>
 		$(document).ready(function() {
 			
-			
+				$("#loginBtn").on("click", function() {
+				
+				let loginId = $("#loginIdInput").val();
+				let password = $("#passwordInput").val();
+				
+				if(loginId == "") {
+					alert("아이디를 입력하세요");
+					return;
+				}
+				
+				if(password == "") {
+					alert("비밀번호를 입력하세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/login"
+					, data:{"loginId":loginId, "password":password}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.href = "/post/main-view";
+						} else {
+							alert("아이디, 비밀번호를 확인 해 주세요");
+						}
+					}					
+					, error:function() {
+						alert("로그인 에러");
+					}
+				});
+				
+			});
 			
 			
 			

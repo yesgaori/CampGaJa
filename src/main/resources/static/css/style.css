@@ -1,8 +1,12 @@
 @charset "UTF-8";
 
-.wrap {
+#wrap {
 	width:1200px;
 	margin:0 auto;
+}
+
+.mainHead {
+	width:400px;
 }
 
 header {
@@ -16,4 +20,24 @@ header {
 
 .join {
 	height:700px;
+}
+
+#section1 {
+	height:400px;
+	background-color: darkseagreen;
+}
+
+#section2 {
+	height:400px;
+	background-color: gold;
+}
+
+#section3 {
+	height:400px;
+	background-color:lightsalmon
+}
+
+#section4 {
+	height:400px;
+	background-color: darkgrey;
 }

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 </head>
 <body>
-	<div class="wrap">
+	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/loginHeader.jsp" />
 		<section class="join d-flex justify-content-center align-items-center">
 			<div class="text-center">
@@ -54,7 +54,17 @@
 			var isDuplicate = true;
 			var isCheckDuplicate2 = false;
 			var isDuplicate2 = true;
-
+			
+			$("#idInput").keyup(function (e) {
+				let content = $(this).val();
+			    // 글자수 제한
+			    if (content.length > 15) {
+			    	// 16자 부터는 타이핑 되지 않도록
+			        $(this).val($(this).val().substring(0, 15));
+			        // 16자 넘으면 알림창 뜨도록
+			        alert("글자수는 15자까지 입력 가능합니다.");
+			    };
+			});
 			
 			$("#nickNameInput").on("click", function() {
 				isCheckDuplicate2 = false;
@@ -71,13 +81,14 @@
 			});
 			
 			$("#duplicateName").on("click", function() {
-				
+						
 				let loginName = $("#nickNameInput").val();
 				
 				if(loginName == "") {
 					alert("닉네임을 입력하세요");
 					return;
 				}
+				
 				
 				$.ajax({
 					type:"get"
@@ -105,6 +116,7 @@
 			});
 			
 			$("#duplicateId").on("click", function() {
+				let content = $("#idInput").val();
 				
 				let loginId = $("#idInput").val();
 				
@@ -112,6 +124,16 @@
 					alert("아이디를 입력하세요");
 					return;
 				}
+				
+				if(content.length < 6){
+					alert("아이디는 최소 5자 이상입니다");
+					return;
+				};
+				
+				if(content.length > 15){
+					alert("아이디는 최소 5자 이상입니다");
+					return;
+				};
 				
 				$.ajax({
 					type:"get"

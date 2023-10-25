@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 </head>
 <body>
-	<div class="wrap">
+	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/loginHeader.jsp" />
 		<section class="login d-flex justify-content-center align-items-center">
 			<div>

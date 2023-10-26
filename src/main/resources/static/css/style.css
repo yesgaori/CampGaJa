@@ -42,10 +42,8 @@ header {
 	background-color: darkgrey;
 }
 
-#container {overflow:hidden;height:300px;position:relative;}
-#btnRoadview,  #btnMap {position:absolute;top:5px;left:5px;padding:7px 12px;font-size:14px;border: 1px solid #dbdbdb;background-color: #fff;border-radius: 2px;box-shadow: 0 1px 1px rgba(0,0,0,.04);z-index:1;cursor:pointer;}
-#btnRoadview:hover,  #btnMap:hover{background-color: #fcfcfc;border: 1px solid #c1c1c1;}
-#container.view_map #mapWrapper {z-index: 10;}
-#container.view_map #btnMap {display: none;}
-#container.view_roadview #mapWrapper {z-index: 0;}
-#container.view_roadview #btnRoadview {display: none;}
+.map_wrap {position:relative;width:100%;height:350px;}
+.title {font-weight:bold;display:block;}
+.hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+#centerAddr {display:block;margin-top:2px;font-weight: normal;}
+.bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}

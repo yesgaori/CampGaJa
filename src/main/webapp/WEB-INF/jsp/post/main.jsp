@@ -12,19 +12,7 @@
 </head>
 <body>
 	<div id="wrap">
-		<header class="d-flex">
-			<div class="mainHead"></div>
-			<div class="mainHead">
-				<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
-			</div>
-			<div class="d-flex align-items-center justify-content-end mainHead">
-				<c:if test="${not empty userId }">
-					<div class="mr-3">${userLoginId }님 <a href="/user/logout">로그아웃</a></div>
-				</c:if>
-				<i class="bi bi-chat-dots mr-2"></i>
-				<i class="bi bi-gear"></i>
-			</div>
-		</header>
+		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
 		<hr>
 		<nav>
 			<ul class="list-group">

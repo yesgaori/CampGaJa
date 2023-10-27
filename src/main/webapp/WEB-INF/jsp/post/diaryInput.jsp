@@ -108,10 +108,12 @@
 	        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
 	        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
 	        infowindow.open(map, marker);
-	        var latlng = mouseEvent.latLng;
-	        
-	        var coordinate = latLng.getLat() +"/"+ latLng.getLng()
+           	
+	        var latLng = place.road_address_name;
+            alert(latLng);
+            
 	    });
+	  
 	}
 	
 	$(document).ready(function () {
@@ -131,11 +133,6 @@
 	        ]
       	});
 		
-		$('.test5').on("click", function() {
-			
-			alert(coordinate + "이게 좌표인가?");
-			
-		});
 		
     });
 	

@@ -37,7 +37,7 @@ public class UserService {
 		}
 	}
 	
-	public User getUser(String loginId
+	public User loginUser(String loginId
 					, String password) {
 		
 		String encryptPassword = EncryptUtils.md5(password);
@@ -67,5 +67,7 @@ public class UserService {
 		return userRepository.save(user);
 		
 	}
+	
+	
 	
 }

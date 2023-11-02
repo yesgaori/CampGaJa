@@ -59,7 +59,7 @@ public class UserRestController {
 						, @RequestParam("password") String password
 						, HttpServletRequest request) {
 
-		User user = userService.getUser(loginId, password);
+		User user = userService.loginUser(loginId, password);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		if(user != null) {

@@ -6,28 +6,50 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yesgaori.campinggaja.post.service.PostService;
 
+@RequestMapping("/post")
 @RestController
 public class PostRestController {
 	
 	@Autowired
 	private PostService postService;
 	
+	@PostMapping("/image-upload")
+	public Map<String, String> fileUpload(
+								@RequestParam("imagePath") MultipartFile file
+								, HttpSession session){
+		int userId = (Integer)session.getAttribute("userId");
+		
+		String imagePath = postService.insertImage(userId, file);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(imagePath != null) {
+			result.put("url", imagePath);
+		} else {
+			result.put("url", "fail");
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("/camping-diary/create")
 	public Map<String, String> creatDiaryPost(
 								@RequestParam("title") String title
 								, @RequestParam("content") String content
-								, @RequestParam("imagePath") MultipartFile file
 								, @RequestParam("mapPath") String mapPath
 								, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = postService.creatDiaryPost(userId, title, content, file, mapPath);
+		int count = postService.creatDiaryPost(userId, title, content, mapPath);
 		
 		Map<String, String> result = new HashMap<>();
 		

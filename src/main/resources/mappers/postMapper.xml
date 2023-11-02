@@ -14,7 +14,6 @@
 			`userId`
 			, `title`
 			, `content`
-			, `imagePath`
 			, `mapPath`
 
 		)
@@ -23,14 +22,45 @@
 			#{userId}
 			, #{title}
 			, #{content}
-			, #{imagePath}
 			, #{mapPath}
 		)
 		
 	</insert>
-
-
-
+	
+	<select id="selectDiary" resultType="com.yesgaori.campinggaja.post.domain.CampingDiaryPost">
+	
+		SELECT
+			`id`
+			,`userId`
+			, `title`
+			, `content`
+			, `mapPath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`camping-diary-post`
+		ORDER BY
+			`id` DESC
+	
+	</select>
+	
+	<select id="selectDetail" resultType="com.yesgaori.campinggaja.post.domain.CampingDiaryPost">
+	
+		SELECT
+			`id`
+			,`userId`
+			, `title`
+			, `content`
+			, `mapPath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`camping-diary-post`
+		WHERE
+			`id` = #{id}
+	
+	</select>
+	
 
 
 

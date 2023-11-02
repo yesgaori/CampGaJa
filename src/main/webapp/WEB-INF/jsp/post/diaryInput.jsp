@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
@@ -24,19 +24,18 @@
 		<section>
 			<div class="d-flex">
 				<h3>제목 : </h3>
-				<input type="text" class="w-75 ml-3">
+				<input type="text" class="w-75 ml-3" id="titleInput">
 			</div>
 			<div>
-				<div id="summernote" class=" d-flex mt-5"></div>
+				<textarea id="summernote" class="contentInput"></textarea>
 			</div>
 		 	<form onsubmit="searchPlaces(); return false;">
                     키워드 : <input type="text" value="캠핑장" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
             </form>
 			<div id="map" style="width:100%;height:350px;"></div>
-			<button type="button" class="btn test5">확인 버튼</button>
 			<div class="d-flex justify-content-center">
-				<button type="button" class="btn btn-primary mt-5">게시하기</button>
+				<button id="addBtn" type="button" class="btn btn-primary mt-5" data-imagePath="${fileUpload.url }">게시하기</button>
 			</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
@@ -44,6 +43,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>	
+	
+	var mapPath;
 	
 	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 	var infowindow = new kakao.maps.InfoWindow({zIndex:1});
@@ -109,8 +110,8 @@
 	        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
 	        infowindow.open(map, marker);
            	
-	        var latLng = place.road_address_name;
-            alert(latLng);
+	        mapPath = place.road_address_name;
+
             
 	    });
 	  
@@ -130,8 +131,97 @@
 	          ['table', ['table']],
 	          ['insert', ['link', 'picture', 'video']],
 	          ['view', ['fullscreen', 'codeview', 'help']]
-	        ]
+	        ],
+	        callbacks: {
+	            onImageUpload : function(files){
+	            	
+	            	uploadSummernoteImageFile(files[0],this);
+	            	
+	            }	
+	            	
+	         }
+	            
+		
+		
+		
       	});
+		
+
+        function uploadSummernoteImageFile(file,editor){ 
+
+
+            data = new FormData(); 
+
+
+            data.append("imagePath",file); 
+
+
+            $.ajax({ 
+	         data:data, 
+	         type:"POST", 
+	         url:"/post/image-upload",  
+	         contentType:false, 
+	         processData:false, 
+	         success:function(data){ 
+				if(data.url != null){
+					$(editor).summernote("insertImage",data.url); 
+				} else{
+					alert("이미지 저장 실패");
+				};
+				
+	         },
+	         error:function(){
+	        	 alert("이미지 저장 오류");
+	         }
+	
+	     }); 
+
+
+        } 
+		
+		$("#addBtn").on("click", function() {
+			
+			let title = $("#titleInput").val();
+			let content = $(".contentInput").val();
+			let imagePath = $(this).data("imagePath");
+			
+			
+			if(title == "") {
+				alert("제목을 입력하세요");
+				return ;
+			}
+			
+			if(content == "") {
+				alert("내용을 입력하세요");
+				return ;
+			}
+			
+			if(mapPath == "") {
+				alert("장소를 선택하세요");
+				return ;
+			}
+				
+			
+			$.ajax({
+				type:"post"
+				, url:"/post/camping-diary/create"
+				, data:{"title":title, "content":content, "imagePath":imagePath, "mapPath":mapPath}
+				, success:function(data) {
+					if(data.result == "success") {
+						location.reload();
+					} else {
+						alert("글쓰기 실패");
+					}
+					
+				}
+				, error:function() {
+					alert("글쓰기 에러");
+				}
+			});
+			
+		});
+		
+		
 		
 		
     });

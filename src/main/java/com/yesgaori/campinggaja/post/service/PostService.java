@@ -42,8 +42,5 @@ public class PostService {
 		return postRepository.selectDetail(id);
 	}
 	
-	public User getUser(int id) {
-		
-		return 
-	}
+	
 }

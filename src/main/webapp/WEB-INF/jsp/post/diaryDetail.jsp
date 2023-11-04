@@ -14,27 +14,23 @@
 <body>
 	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
-		<hr>
-		<nav>
-			<ul class="list-group">
-				<div class="d-flex text-center">
-					<a href="#" class="list-group-item list-group-item-action">캠핑후기</a>
-					<a href="#" class="list-group-item list-group-item-action">캠핑 먹부림</a>
-					<a href="#" class="list-group-item list-group-item-action">장비추천</a>
-					<a href="#" class="list-group-item list-group-item-action">캠퍼모집</a>
-				</div>
-			</ul>
-		</nav>
+		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
 		<hr>
 		<div class="d-flex">
 			<div>
 				<h2>${post.title }</h2>
-				<h3></h3>
+				<div>
+					<h3>${user.name } </h3>
+					<i class="bi bi-hearts"></i>${like }
+				</div>
 			</div>
 		</div>
 		<hr>
-			
+		<div>
+			<h4>${post.content }</h4>
+			<div id="map" style="width:100%;height:350px;"></div>
+		</div>	
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 		
@@ -45,7 +41,42 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
-	
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+		
+		    // 정상적으로 검색이 완료됐으면 
+		     if (status === kakao.maps.services.Status.OK) {
+		
+		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+		
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        var infowindow = new kakao.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+		        });
+		        infowindow.open(map, marker);
+		
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		    } 
+		});    
 	
 	</script>
 	

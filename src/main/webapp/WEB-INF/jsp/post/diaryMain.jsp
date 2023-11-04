@@ -14,17 +14,7 @@
 <body>
 	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
-		<hr>
-		<nav>
-			<ul class="list-group">
-				<div class="d-flex text-center">
-					<a href="#" class="list-group-item list-group-item-action">캠핑후기</a>
-					<a href="#" class="list-group-item list-group-item-action">캠핑 먹부림</a>
-					<a href="#" class="list-group-item list-group-item-action">장비추천</a>
-					<a href="#" class="list-group-item list-group-item-action">캠퍼모집</a>
-				</div>
-			</ul>
-		</nav>
+		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
 			<div id="section1">
 				<h2 class="pt-2 pl-2">인기 캠핌후기</h2>	
@@ -42,7 +32,7 @@
 						<c:forEach var="post" items="${diaryList }">
 						<tr>
 							<td>${post.id }</td>
-							<td><a href="/post/detail-view?id=${post.id }" >${post.title }</a></td>
+							<td><a href="/post/camping-diary/detail-view?id=${post.id }" >${post.title }</a></td>
 							<td><fmt:formatDate value="${post.createdAt }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						</tr>
 						</c:forEach>

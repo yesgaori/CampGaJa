@@ -21,6 +21,7 @@
 <body>
 	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
+		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
 			<div class="d-flex">
 				<h3>제목 : </h3>
@@ -208,7 +209,7 @@
 				, data:{"title":title, "content":content, "imagePath":imagePath, "mapPath":mapPath}
 				, success:function(data) {
 					if(data.result == "success") {
-						location.reload();
+						location.href = "/post/main/diary-view";
 					} else {
 						alert("글쓰기 실패");
 					}

@@ -18,6 +18,7 @@
 <body>
 	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
+		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
 			<div class="d-flex">
 				<h3>제목 : </h3>

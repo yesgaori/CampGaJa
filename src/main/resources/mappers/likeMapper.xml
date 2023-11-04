@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yesgaori.campinggaja.like.repository.LikeRepository">
+
+	<insert id="insertLike" parameterType="map">
+		INSERT INTO
+			`like`
+		(
+			`postId`
+			, `userId`
+		)
+		
+		VALUE
+		(
+			#{postId}
+			, #{userId}
+		)
+	</insert>
+	
+	<select id="selectCountLike" parameterType="int" resultType="int">
+	
+		SELECT
+			count(1)
+		FROM
+			`like`
+		WHERE
+			`postId` = #{postId}
+	
+	
+	
+	
+	</select>
+	
+	<select id="selectCountLikeByUserId" parameterType="map" resultType="int">
+		
+		SELECT
+			count(1)
+		FROM
+			`like`
+		WHERE
+			`postId` = #{postId}
+			AND `userId` = #{userId}
+		
+	
+	</select>
+	<delete id="deleteLikeByPostId" parameterType="int">
+	
+		DELETE FROM
+			`like`
+		WHERE
+			`postId` = #{postId}
+	
+	</delete>
+	
+	<delete id="deleteLikeByPostIdAndUserId" parameterType="int">
+	
+		DELETE FROM
+			`like`
+		WHERE
+			`postId` = #{postId}
+			AND `userId` = #{userId}
+	
+	
+	</delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

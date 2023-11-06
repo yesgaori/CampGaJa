@@ -39,6 +39,9 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="d-flex justify-content-end">
+				<a class="btn btn-primary" href="/post/camping-diary/create-view">글쓰기</a>
+			</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 		

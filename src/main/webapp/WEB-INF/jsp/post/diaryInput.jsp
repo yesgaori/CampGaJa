@@ -23,7 +23,7 @@
 		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
 		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
-			<div class="d-flex">
+			<div class="d-flex mb-3 mt-5">
 				<h3>제목 : </h3>
 				<input type="text" class="w-75 ml-3" id="titleInput">
 			</div>

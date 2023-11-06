@@ -4,7 +4,7 @@
 		<hr>
 		<nav>
 			<ul class="list-group">
-				<div class="d-flex text-center">
+				<div class="d-flex text-center mb-3">
 					<a href="/post/main/diary-view" class="list-group-item list-group-item-action">캠핑후기</a>
 					<a href="#" class="list-group-item list-group-item-action">캠핑 먹부림</a>
 					<a href="#" class="list-group-item list-group-item-action">장비추천</a>

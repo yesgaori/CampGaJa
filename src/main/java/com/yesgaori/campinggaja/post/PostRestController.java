@@ -62,4 +62,47 @@ public class PostRestController {
 		return result;
 	}
 	
+	@PostMapping("/eating-diary/create")
+	public Map<String, String> creatEatingPost(
+								@RequestParam("title") String title
+								, @RequestParam("content") String content
+								, HttpSession session) {
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = postService.creatEatingPost(userId, title, content);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("/item/create")
+	public Map<String, String> creatItemPost(
+								@RequestParam("title") String title
+								, @RequestParam("content") String content
+								, @RequestParam("starPoint") double starPoint
+								, HttpSession session) {
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = postService.creatItemPost(userId, title, content, starPoint);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
 }

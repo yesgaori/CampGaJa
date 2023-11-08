@@ -1,17 +1,16 @@
-package com.yesgaori.campinggaja.comment.dto;
+package com.yesgaori.campinggaja.starpoint.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class CommentDetail {
-	
+public class StarPointDetail {
+
 	private int id;
 	private int userId;
-	private int category;
 	private String content;
 	private String loginId;
-	
-	
+	private double starPoint;
+
 }

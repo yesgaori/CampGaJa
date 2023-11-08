@@ -125,7 +125,7 @@
 					return;
 				}
 				
-				if(content.length < 6){
+				if(content.length < 5){
 					alert("아이디는 최소 5자 이상입니다");
 					return;
 				};

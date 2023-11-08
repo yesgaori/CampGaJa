@@ -3,25 +3,26 @@ package com.yesgaori.campinggaja.post.dto;
 import java.sql.Date;
 import java.util.List;
 
-import com.yesgaori.campinggaja.comment.dto.CommentDetail;
+import com.yesgaori.campinggaja.starpoint.dto.StarPointDetail;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class PostDetail {
+public class ItemDetail {
 	
 	private int id;
 	private int userId;
-	private String loginId;
+	private int loginId;
 	private String name;
 	private String title;
 	private String content;
-	private String mapPath;
-	private int likeCount;
-	private boolean isLike;
-	private List<CommentDetail> commentList;
+	private double point;
+	private double averagePoint;
+	private int starPointCount;
+	private boolean isStarPoint;
+	private List<StarPointDetail> starPointList;
 	private Date createdAt;
 	
 }

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>캠핑후기 메인</title>
+<title>장비추천</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
@@ -16,25 +16,27 @@
 		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
 		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
-			<div id="section1">
-				<h2 class="pt-2 pl-2">인기 캠핌후기</h2>	
+			<div id="section3">
+				<h2 class="pt-2 pl-2">인기 장비추천</h2>	
 			</div>
 			<div class="d-flex">
 				<table class="table text-center">
 					<thead>
 						<tr>
 							<th class="col-2">No.</th>
-							<th class="col-6">Title</th>
+							<th class="col-4">Title</th>
 							<th class="col-2">Name</th>
+							<th class="col-2">Point</th>
 							<th class="col-2">Date</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="post" items="${diaryList }">
+						<c:forEach var="post" items="${itemList }">
 						<tr>
 							<td>${post.postId }</td>
-							<td><a href="/post/camping-diary/detail-view?id=${post.postId }&category=1" >${post.title }</a></td>
+							<td><a href="/post/item/detail-view?id=${post.postId }">${post.title }</a></td>
 							<td>${post.userName }</td>
+							<td>${post.averagePoint }</td>
 							<td><fmt:formatDate value="${post.createdAt }" pattern="yyyy-MM-dd" /></td>
 						</tr>
 						</c:forEach>
@@ -42,7 +44,7 @@
 				</table>
 			</div>
 			<div class="d-flex justify-content-end">
-				<a class="btn btn-primary" href="/post/camping-diary/create-view">글쓰기</a>
+				<a class="btn btn-primary" href="/post/item/create-view">글쓰기</a>
 			</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
@@ -57,6 +59,5 @@
 	
 	
 	</script>
-	
 </body>
 </html>

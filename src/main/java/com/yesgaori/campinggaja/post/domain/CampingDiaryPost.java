@@ -2,6 +2,9 @@ package com.yesgaori.campinggaja.post.domain;
 
 import java.sql.Date;
 
+import javax.persistence.Table;
+
+@Table(name = "camping-diary-post")
 public class CampingDiaryPost {
 	
 	private int id;
@@ -11,6 +14,8 @@ public class CampingDiaryPost {
 	private String mapPath;
 	private Date createdAt;
 	private Date updatedAt;
+	
+	
 	public int getId() {
 		return id;
 	}

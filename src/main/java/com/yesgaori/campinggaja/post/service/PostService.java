@@ -1,5 +1,6 @@
 package com.yesgaori.campinggaja.post.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,17 @@ import com.yesgaori.campinggaja.comment.service.CommentService;
 import com.yesgaori.campinggaja.common.FileManager;
 import com.yesgaori.campinggaja.like.service.LikeService;
 import com.yesgaori.campinggaja.post.domain.CampingDiaryPost;
+import com.yesgaori.campinggaja.post.domain.EatingDiaryPost;
+import com.yesgaori.campinggaja.post.domain.ItemPost;
+import com.yesgaori.campinggaja.post.dto.CampingMainList;
+import com.yesgaori.campinggaja.post.dto.EatingDetail;
+import com.yesgaori.campinggaja.post.dto.EatingMainList;
+import com.yesgaori.campinggaja.post.dto.ItemDetail;
+import com.yesgaori.campinggaja.post.dto.ItemMainList;
 import com.yesgaori.campinggaja.post.dto.PostDetail;
 import com.yesgaori.campinggaja.post.repository.PostRepository;
+import com.yesgaori.campinggaja.starpoint.dto.StarPointDetail;
+import com.yesgaori.campinggaja.starpoint.service.StarPointService;
 import com.yesgaori.campinggaja.user.domain.User;
 import com.yesgaori.campinggaja.user.service.UserService;
 
@@ -28,6 +38,8 @@ public class PostService {
 	private LikeService likeService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private StarPointService starPointService;
 	
 	public int creatDiaryPost(int userId, String title, String content, String mapPath) {
 		
@@ -44,9 +56,29 @@ public class PostService {
 		
 	}
 	
-	public List<CampingDiaryPost> selectDiary() {
+	public List<CampingMainList> selectDiary() {
 		
-		return postRepository.selectDiary();
+		List<CampingMainList> campingMain = new ArrayList<>(); 
+		List<CampingDiaryPost> campingDiaryPostList = postRepository.selectDiary();
+		
+		for(CampingDiaryPost campingDiaryPost:campingDiaryPostList) {
+		
+			int count = likeService.countLike(campingDiaryPost.getId(), 1);
+			
+				
+			User user = userService.getUserById(campingDiaryPost.getUserId());
+			
+			CampingMainList campingMainList = CampingMainList.builder()
+										.postId(campingDiaryPost.getId())
+										.title(campingDiaryPost.getTitle())
+										.userName(user.getName())
+										.likeCount(count)
+										.createdAt(campingDiaryPost.getCreatedAt())
+										.build();
+			
+			campingMain.add(campingMainList);
+		}
+			return campingMain;
 	}
 	
 	public CampingDiaryPost selectDetail(int id) {
@@ -55,28 +87,32 @@ public class PostService {
 	}
 	
 	public PostDetail getPost(int loginUserId
-							, int id) {
+							, int id
+							, int category) {
 		
 		CampingDiaryPost post = postRepository.selectDetail(id);
 			
 		int userId = post.getUserId();
 		User user = userService.getUserById(userId);
 		// 좋아요 개수 조회
-		int likeCount = likeService.countLike(post.getId());
-		boolean isLike = likeService.isLike(post.getId(), loginUserId);
+		int likeCount = likeService.countLike(post.getId(), 1);
+		boolean isLike = likeService.isLike(post.getId(), loginUserId, 1);
 		
 		
-		List<CommentDetail> commentList = commentService.getCommentList(post.getId());
+		List<CommentDetail> commentList = commentService.getCommentList(post.getId(), category);
 		
 		PostDetail postDetail = PostDetail.builder()
 								.id(post.getId())
 								.userId(userId)
+								.name(user.getName())
+								.title(post.getTitle())
 								.content(post.getContent())
 								.mapPath(post.getMapPath())
 								.loginId(user.getLoginId())
 								.likeCount(likeCount)
 								.isLike(isLike)
 								.commentList(commentList)
+								.createdAt(post.getCreatedAt())
 								.build();
 		
 			
@@ -86,5 +122,168 @@ public class PostService {
 		
 	}
 	
+	public int creatEatingPost(int userId, String title, String content) {
+		
+		
+		return postRepository.creatEatingPost(userId, title, content);
+		
+	}
 	
+	
+	public List<EatingMainList> selectEatingList() {
+		
+		List<EatingMainList> eatingMain = new ArrayList<>(); 
+		List<EatingDiaryPost> eatingDiaryPostList = postRepository.selectEatingList();
+		
+		for(EatingDiaryPost eatingDiaryPost:eatingDiaryPostList) {
+		
+			int count = likeService.countLike(eatingDiaryPost.getId(),2);
+			
+				
+			User user = userService.getUserById(eatingDiaryPost.getUserId());
+			
+			EatingMainList eatingMainList = EatingMainList.builder()
+										.postId(eatingDiaryPost.getId())
+										.title(eatingDiaryPost.getTitle())
+										.userName(user.getName())
+										.likeCount(count)
+										.createdAt(eatingDiaryPost.getCreatedAt())
+										.build();
+			
+			eatingMain.add(eatingMainList);
+		}
+			return eatingMain;
+	}
+		
+	public EatingDiaryPost selectEating(int id) {
+		
+		return postRepository.selectEating(id);
+	}
+	
+	public EatingDetail getEating(int loginUserId
+							, int id
+							, int category) {
+		
+		EatingDiaryPost post = postRepository.selectEating(id);
+			
+		int userId = post.getUserId();
+		User user = userService.getUserById(userId);
+		// 좋아요 개수 조회
+		int likeCount = likeService.countLike(post.getId(), 2);
+		boolean isLike = likeService.isLike(post.getId(), loginUserId, 2);
+		
+		
+		List<CommentDetail> commentList = commentService.getCommentList(post.getId(), category);
+		
+		EatingDetail eatingDetail = EatingDetail.builder()
+								.id(post.getId())
+								.userId(userId)
+								.name(user.getName())
+								.title(post.getTitle())
+								.content(post.getContent())
+								.loginId(user.getLoginId())
+								.likeCount(likeCount)
+								.isLike(isLike)
+								.commentList(commentList)
+								.createdAt(post.getCreatedAt())
+								.build();
+		
+			
+
+		
+		return eatingDetail;
+		
+	}
+	
+	public int creatItemPost(int userId, String title, String content, double starPoint) {
+		
+		
+		return postRepository.creatItemPost(userId, title, content, starPoint);
+		
+	}
+	
+	
+	public List<ItemMainList> selectItemList() {
+		
+		double averagePoint = 0.0;
+		List<ItemMainList> itemMain = new ArrayList<>(); 
+		List<ItemPost> itemList = postRepository.selectItemList();
+		
+		for(ItemPost itemPost:itemList) {
+		
+			List<StarPointDetail> starPointList = starPointService.getStarPointList(itemPost.getId());
+			
+				for(StarPointDetail starPointDetail:starPointList) {
+					
+					averagePoint =+ starPointDetail.getStarPoint();
+					
+				}
+			int starPointCount = starPointService.countStarPoint(itemPost.getId());
+				
+			User user = userService.getUserById(itemPost.getUserId());
+			
+			ItemMainList itemMainList = ItemMainList.builder()
+										.postId(itemPost.getId())
+										.title(itemPost.getTitle())
+										.userName(user.getName())
+										.averagePoint((averagePoint + itemPost.getStarPoint())/(starPointCount + 1))
+										.createdAt(itemPost.getCreatedAt())
+										.build();
+			
+			itemMain.add(itemMainList);
+			averagePoint = 0.0;
+		}
+		
+		return itemMain;
+		
+		
+	}
+	
+	public ItemPost selectItem(int id) {
+		
+		return postRepository.selectItem(id);
+	}
+	
+	public ItemDetail getItem(int loginUserId
+							, int id) {
+		
+		ItemPost post = postRepository.selectItem(id);
+			
+		int userId = post.getUserId();
+		User user = userService.getUserById(userId);
+		// 좋아요 개수 조회
+		int starPointCount = starPointService.countStarPoint(post.getId());
+		boolean isStarPoint = starPointService.isStarPoint(post.getId(), loginUserId);
+		
+		
+		List<StarPointDetail> starPointList = starPointService.getStarPointList(post.getId());
+		
+		double averagePoint = 0.0;
+		
+		for(StarPointDetail starPoint:starPointList){
+			
+			averagePoint =+ (double)starPoint.getStarPoint();
+		};
+		
+		ItemDetail itemDetail = ItemDetail.builder()
+								.id(post.getId())
+								.userId(userId)
+								.name(user.getName())
+								.title(post.getTitle())
+								.content(post.getContent())
+								.point(post.getStarPoint())
+								.loginId(loginUserId)
+								.averagePoint((averagePoint + post.getStarPoint())/(starPointCount + 1))
+								.starPointCount(starPointCount)
+								.isStarPoint(isStarPoint)
+								.starPointList(starPointList)
+								.createdAt(post.getCreatedAt())
+								.build();
+		
+			
+
+		
+		return itemDetail;
+		
+	}
 }

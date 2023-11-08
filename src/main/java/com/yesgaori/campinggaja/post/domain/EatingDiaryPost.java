@@ -1,24 +1,20 @@
-package com.yesgaori.campinggaja.comment.domain;
+package com.yesgaori.campinggaja.post.domain;
 
 import java.sql.Date;
 
-public class Comment {
+import javax.persistence.Table;
+
+@Table(name = "eating-diary-post")
+public class EatingDiaryPost {
+	
 	
 	private int id;
-	private int postId;
 	private int userId;
-	private int category;
+	private String title;
 	private String content;
 	private Date createdAt;
 	private Date updatedAt;
 	
-	
-	public int getCategory() {
-		return category;
-	}
-	public void setCategory(int category) {
-		this.category = category;
-	}
 	
 	public int getId() {
 		return id;
@@ -26,17 +22,17 @@ public class Comment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getPostId() {
-		return postId;
-	}
-	public void setPostId(int postId) {
-		this.postId = postId;
-	}
 	public int getUserId() {
 		return userId;
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getContent() {
 		return content;
@@ -56,5 +52,6 @@ public class Comment {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
 	
 }

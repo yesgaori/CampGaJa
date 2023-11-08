@@ -10,7 +10,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class PostDetail {
+public class EatingDetail {
 	
 	private int id;
 	private int userId;
@@ -18,7 +18,6 @@ public class PostDetail {
 	private String name;
 	private String title;
 	private String content;
-	private String mapPath;
 	private int likeCount;
 	private boolean isLike;
 	private List<CommentDetail> commentList;

@@ -11,13 +11,15 @@
 		(
 			`userId`
 			, `postId`
+			, `category`
 			, `content`
 		)
 		VALUE
 		(
-			#{userId}
-			, #{postId}
-			, #{content}
+			#{param1}
+			, #{param2}
+			, #{param3}
+			, #{param4}
 		)
 	
 	</insert>
@@ -27,20 +29,23 @@
 			`id`
 			, `postId`
 			, `userId`
+			, `category`
 			, `content`
 			, `createdAt`
 			, `updatedAt`
 		FROM
 			`comment`
 		WHERE
-			`postId` = #{postId}
+			`postId` = #{param1}
+			AND `category` = #{param2}
 	
 	</select>
 	<delete id="deleteCommentByPost" parameterType="int">
 		DELETE FROM
 			`comment`
 		WHERE
-			`postId` = #{postId}
+			`postId` = #{param1}
+			AND `category` = #{param2}
 	
 	</delete>
 

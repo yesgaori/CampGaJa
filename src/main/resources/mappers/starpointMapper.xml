@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yesgaori.campinggaja.starpoint.repository.StarPointRepository">
+
+	<select id="selectCountStarPoint" parameterType="int" resultType="int">
+	
+		SELECT
+			count(1)
+		FROM
+			`star-point`
+		WHERE
+			`itemPostId` = #{postId}
+	
+	
+	
+	
+	</select>
+	
+	<select id="selectCountStarPointByUserId" parameterType="map" resultType="int">
+		
+		SELECT
+			count(1)
+		FROM
+			`star-point`
+		WHERE
+			`itemPostId` = #{param1}
+			AND `userId` = #{param2}
+		
+	
+	</select>
+
+	<insert id="insertStarPoint" parameterType="map">
+		INSERT INTO
+			`star-point`
+		(
+			`userId`
+			, `itemPostId`
+			, `content`
+			, `starPoint`
+		)
+		VALUE
+		(
+			#{param1}
+			, #{param2}
+			, #{param3}
+			, #{param4}
+		)
+	
+	</insert>
+	<select id="selectStarPointList" parameterType="int" resultType="com.yesgaori.campinggaja.starpoint.domain.StarPoint">
+	
+		SELECT
+			`id`
+			, `itemPostId`
+			, `userId`
+			, `content`
+			, `starPoint`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`star-point`
+		WHERE
+			`itemPostId` = #{postId}
+
+	
+	</select>
+	<delete id="deleteStarPointByPost" parameterType="int">
+		DELETE FROM
+			`star-point`
+		WHERE
+			`itemPostId` = #{postId}
+	
+	</delete>
+
+
+
+</mapper>

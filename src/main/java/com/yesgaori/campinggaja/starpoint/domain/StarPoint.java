@@ -1,24 +1,17 @@
-package com.yesgaori.campinggaja.comment.domain;
+package com.yesgaori.campinggaja.starpoint.domain;
 
 import java.sql.Date;
 
-public class Comment {
+public class StarPoint {
 	
 	private int id;
-	private int postId;
+	private int itemPostId;
 	private int userId;
-	private int category;
 	private String content;
+	private double starPoint;
 	private Date createdAt;
 	private Date updatedAt;
 	
-	
-	public int getCategory() {
-		return category;
-	}
-	public void setCategory(int category) {
-		this.category = category;
-	}
 	
 	public int getId() {
 		return id;
@@ -26,11 +19,11 @@ public class Comment {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getPostId() {
-		return postId;
+	public int getItemPostId() {
+		return itemPostId;
 	}
-	public void setPostId(int postId) {
-		this.postId = postId;
+	public void setItemPostId(int itemPostId) {
+		this.itemPostId = itemPostId;
 	}
 	public int getUserId() {
 		return userId;
@@ -44,6 +37,12 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public double getStarPoint() {
+		return starPoint;
+	}
+	public void setStarPoint(double starPoint) {
+		this.starPoint = starPoint;
+	}
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -56,5 +55,6 @@ public class Comment {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
 	
 }

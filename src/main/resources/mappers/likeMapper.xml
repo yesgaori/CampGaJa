@@ -11,12 +11,14 @@
 		(
 			`postId`
 			, `userId`
+			, `category`
 		)
 		
 		VALUE
 		(
-			#{postId}
-			, #{userId}
+			#{param1}
+			, #{param2}
+			, #{param3}
 		)
 	</insert>
 	
@@ -27,7 +29,8 @@
 		FROM
 			`like`
 		WHERE
-			`postId` = #{postId}
+			`postId` = #{param1}
+			AND `category` = #{param2}
 	
 	
 	
@@ -41,8 +44,9 @@
 		FROM
 			`like`
 		WHERE
-			`postId` = #{postId}
-			AND `userId` = #{userId}
+			`postId` = #{param1}
+			AND `userId` = #{param2}
+			AND `category` = #{param3}
 		
 	
 	</select>
@@ -51,7 +55,8 @@
 		DELETE FROM
 			`like`
 		WHERE
-			`postId` = #{postId}
+			`postId` = #{param1}
+			AND `category` = #{param2}
 	
 	</delete>
 	
@@ -60,8 +65,9 @@
 		DELETE FROM
 			`like`
 		WHERE
-			`postId` = #{postId}
-			AND `userId` = #{userId}
+			`postId` = #{param1}
+			AND `userId` = #{param2}
+			AND `category` = #{param3}
 	
 	
 	</delete>

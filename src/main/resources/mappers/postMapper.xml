@@ -61,7 +61,113 @@
 	
 	</select>
 	
+	<insert id="creatEatingPost" parameterType="map">
+	
+		INSERT INTO
+		
+		`eating-diary-post`
+		(
+			`userId`
+			, `title`
+			, `content`
 
+		)
+		VALUE
+		(
+			#{userId}
+			, #{title}
+			, #{content}
+		)
+		
+	</insert>
+	
+	<select id="selectEatingList" resultType="com.yesgaori.campinggaja.post.domain.EatingDiaryPost">
+	
+		SELECT
+			`id`
+			,`userId`
+			, `title`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`eating-diary-post`
+		ORDER BY
+			`id` DESC
+	
+	</select>
+	
+	<select id="selectEating" resultType="com.yesgaori.campinggaja.post.domain.EatingDiaryPost">
+	
+		SELECT
+			`id`
+			,`userId`
+			, `title`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`eating-diary-post`
+		WHERE
+			`id` = #{id}
+	
+	</select>
+	
+	<insert id="creatItemPost" parameterType="map">
+	
+		INSERT INTO
+		
+			`item-post`
+		(
+			`userId`
+			, `title`
+			, `content`
+			, `starPoint`
+
+		)
+		VALUE
+		(
+			#{userId}
+			, #{title}
+			, #{content}
+			, #{starPoint}
+		)
+		
+	</insert>
+	
+	<select id="selectItemList" resultType="com.yesgaori.campinggaja.post.domain.ItemPost">
+	
+		SELECT
+			`id`
+			,`userId`
+			, `title`
+			, `content`
+			, `starPoint`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`item-post`
+		ORDER BY
+			`id` DESC
+	
+	</select>
+	
+	<select id="selectItem" resultType="com.yesgaori.campinggaja.post.domain.ItemPost">
+	
+		SELECT
+			`id`
+			,`userId`
+			, `title`
+			, `content`
+			, `starPoint`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`item-post`
+		WHERE
+			`id` = #{id}
+	
+	</select>
 
 
 

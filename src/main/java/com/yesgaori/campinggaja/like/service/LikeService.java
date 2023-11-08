@@ -12,17 +12,17 @@ public class LikeService {
 	@Autowired
 	private LikeRepository likeRepository;
 	
-	public int addLike(int postId, int userId) {
-		return likeRepository.insertLike(postId, userId);
+	public int addLike(int postId, int userId, int category) {
+		return likeRepository.insertLike(postId, userId, category);
 	}
 	
-	public int countLike(int postId) {
-		return likeRepository.selectCountLike(postId);
+	public int countLike(int postId, int category) {
+		return likeRepository.selectCountLike(postId, category);
 	}
 	
-	public boolean isLike(int postId, int userId) {
+	public boolean isLike(int postId, int userId, int category) {
 		
-		int count = likeRepository.selectCountLikeByUserId(postId, userId);
+		int count = likeRepository.selectCountLikeByUserId(postId, userId, category);
 		
 //		if(count == 0) {
 //			return false;
@@ -34,13 +34,13 @@ public class LikeService {
 		return count != 0;
 	}
 	
-	public int deleteLikeByPostId(int postId) {
-		return likeRepository.deleteLikeByPostId(postId);
+	public int deleteLikeByPostId(int postId, int category) {
+		return likeRepository.deleteLikeByPostId(postId, category);
 	}
 	
-	public int deleteLikeByPostIdAndUserId(int postId, int userId) {
+	public int deleteLikeByPostIdAndUserId(int postId, int userId, int category) {
 		
-		return likeRepository.deleteLikeByPostIdAndUserId(postId, userId);
+		return likeRepository.deleteLikeByPostIdAndUserId(postId, userId, category);
 		
 	}
 	

@@ -13,11 +13,14 @@ public interface CommentRepository {
 	public int insertComment(
 			@Param("userId") int userId
 			, @Param("postId") int postId
+			, @Param("category") int category
 			, @Param("content") String content);
 	
-	public List<Comment> selectCommentList(@Param("postId") int postId);
+	public List<Comment> selectCommentList(@Param("postId") int postId
+											, @Param("category") int category);
 	
 	
-	public int deleteCommentByPost(@Param("postId") int postId);
+	public int deleteCommentByPost(@Param("postId") int postId
+									, @Param("category") int category);
 	
 }

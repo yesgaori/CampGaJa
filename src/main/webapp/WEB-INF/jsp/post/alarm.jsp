@@ -16,9 +16,11 @@
 		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
 		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
-			<table class="table text-center">
-				<c:forEach var="title" items="${titleList }">
-					<h2>${title.title}<a class="text-success">${title.personnel}</a></h2>
+			<c:forEach var="title" items="${titleList }">
+				<table class="table text-center">
+					<div id="recruitmentTitle${title.postId }">
+						<h2>${title.title}<a class="text-success">${title.personnel}</a></h2>
+					</div>
 					<c:forEach var="post" items="${postList }">
 						<thead>
 							<tr>

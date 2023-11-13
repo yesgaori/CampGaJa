@@ -32,7 +32,8 @@
 			</div>
 			<div>
 				<textarea id="summernote" class="contentInput">
-					작성요령 : 장소, 일자, 자격요건, 나이대 등
+					작성요령 : 장소, 일자, 자격요건, 나이대 등 <br>
+					------------------------------------------
 				</textarea>
 			</div>
 			<div class="mt-3 mb-3">

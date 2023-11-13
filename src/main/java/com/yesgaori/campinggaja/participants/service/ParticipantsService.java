@@ -163,7 +163,7 @@ public class ParticipantsService {
 		
 		List<RecruitmentPost> recruitmentList = postRepository.findRecruitmentPostList(userId);
 		
-		Map<String, String> recruitmentTitle = new HashMap<>();
+		Map<String, Object> recruitmentTitle = new HashMap<>();
 		
 		List<Map> result = new ArrayList<>();
 		
@@ -171,9 +171,11 @@ public class ParticipantsService {
 			
 			int approveCount = participantsRepository.approveCountParticipants(post.getId());
 			
-			recruitmentTitle.put("title",post.getTitle());
+			recruitmentTitle.put("postId" + post.getId(), post.getId());
 			
-			recruitmentTitle.put("personnel", approveCount + "/" + post.getPersonnel());
+			recruitmentTitle.put("title" + post.getId(),post.getTitle());
+			
+			recruitmentTitle.put("personnel" + post.getId(), approveCount + "/" + post.getPersonnel());
 			
 			result.add(recruitmentTitle);
 		}

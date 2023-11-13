@@ -16,7 +16,7 @@
 		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
 			<div id="section1">
-				<h2 class="pt-2 pl-2">인기 캠핌후기</h2>	
+				<h2 class="pt-2 pl-2">인기 캠핑후기</h2>	
 			</div>
 			<div id="section2">
 				<h2 class="pt-2 pl-2">인기 캠핑 먹부림</h2>

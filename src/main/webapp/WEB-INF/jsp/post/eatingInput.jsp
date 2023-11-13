@@ -23,7 +23,7 @@
 		<section>
 			<div class="d-flex mb-3 mt-5">
 				<h3>제목 : </h3>
-				<input type="text" class="w-75 ml-3" id="titleInput">
+				<input type="text" class="form-control w-75 ml-3" id="titleInput">
 			</div>
 			<div>
 				<textarea id="summernote" class="contentInput"></textarea>

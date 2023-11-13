@@ -1,5 +1,6 @@
 package com.yesgaori.campinggaja.post;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,6 +94,40 @@ public class PostRestController {
 		int userId = (Integer)session.getAttribute("userId");
 		
 		int count = postService.creatItemPost(userId, title, content, starPoint);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("/recruitment/create")
+	public Map<String, String> creatRecruitmentPost(
+								@RequestParam("title") String title
+								, @RequestParam("content") String content
+								, @RequestParam("mapPath") String mapPath
+								, @RequestParam("personnel") int personnel
+								, @RequestParam("appointmentStartDate") String appointmentStartDate
+								, @RequestParam("appointmentEndDate") String appointmentEndDate
+								, @RequestParam("info") int info
+								, HttpSession session) {
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = postService.creatRecruitmentPost(
+											userId
+											, title
+											, content
+											, mapPath
+											, personnel
+											, appointmentStartDate
+											, appointmentEndDate
+											, info);
 		
 		Map<String, String> result = new HashMap<>();
 		

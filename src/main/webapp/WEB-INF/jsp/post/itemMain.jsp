@@ -36,7 +36,7 @@
 							<td>${post.postId }</td>
 							<td><a href="/post/item/detail-view?id=${post.postId }">${post.title }</a></td>
 							<td>${post.userName }</td>
-							<td>${post.averagePoint }</td>
+							<td><fmt:formatNumber pattern="#.#" value="${post.averagePoint}" /></td>
 							<td><fmt:formatDate value="${post.createdAt }" pattern="yyyy-MM-dd" /></td>
 						</tr>
 						</c:forEach>

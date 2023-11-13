@@ -25,7 +25,7 @@
 				<h2>${itemList.title }</h2>
 				<div class="d-flex">
 					<h4><i class="bi bi-person-fill">${itemList.name }</i></h4>
-					<h4><i class="bi bi-stars ml-5">${itemList.averagePoint}</i></h4>
+					<h4><i class="bi bi-stars ml-5"><fmt:formatNumber pattern="#.#" value="${itemList.averagePoint}" /></i></h4>
 				</div>
 				<div>${itemList.createdAt }</div>
 			</div>
@@ -47,7 +47,7 @@
 
 			</div>
 			<div class="d-flex justify-content-center align-items-center">
-				<h1 class="text-success">${itemList.averagePoint}</h1><h5>/5.0</h5>
+				<h1 class="text-success"><fmt:formatNumber pattern="#.#" value="${itemList.averagePoint}" /></h1><h5>/5.0</h5>
 			</div>
 			<h4>평가개수 ${itemList.starPointCount + 1 }개</h4>
 			</div>

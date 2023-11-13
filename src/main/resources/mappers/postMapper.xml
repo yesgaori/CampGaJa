@@ -169,9 +169,99 @@
 	
 	</select>
 
+	<insert id="creatRecruitment" parameterType="map">
+	
+		INSERT INTO
+		
+			`recruitment-post`
+		(
+			`userId`
+			, `title`
+			, `content`
+			, `mapPath`
+			, `personnel`
+			, `appointmentStartDate`
+			, `appointmentEndDate`
+			, `info`
 
+		)
+		VALUE
+		(
+			#{param1}
+			, #{param2}
+			, #{param3}
+			, #{param4}
+			, #{param5}
+			, #{param6}
+			, #{param7}
+			, #{param8}
+		)
+		
+	</insert>
+	
+	<select id="selectRecruitmentList" resultType="com.yesgaori.campinggaja.post.domain.RecruitmentPost">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `title`
+			, `content`
+			, `mapPath`
+			, `personnel`
+			, `appointmentStartDate`
+			, `appointmentEndDate`
+			, `info`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`recruitment-post`
+		ORDER BY
+			`id` DESC
+	
+	</select>
+	
+	<select id="selectRecruitment" resultType="com.yesgaori.campinggaja.post.domain.RecruitmentPost">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `title`
+			, `content`
+			, `mapPath`
+			, `personnel`
+			, `appointmentStartDate`
+			, `appointmentEndDate`
+			, `info`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`recruitment-post`
+		WHERE
+			`id` = #{id}
+	
+	</select>
 
-
+	<select id="findRecruitmentPostList" resultType="com.yesgaori.campinggaja.post.domain.RecruitmentPost">
+	
+		SELECT
+			`id`
+			, `userId`
+			, `title`
+			, `content`
+			, `mapPath`
+			, `personnel`
+			, `appointmentStartDate`
+			, `appointmentEndDate`
+			, `info`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`recruitment-post`
+		WHERE
+			`userId` = #{userId}
+			AND `info` = "0"
+	
+	</select>
 
 
 

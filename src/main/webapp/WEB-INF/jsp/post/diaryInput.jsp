@@ -25,14 +25,14 @@
 		<section>
 			<div class="d-flex mb-3 mt-5">
 				<h3>제목 : </h3>
-				<input type="text" class="w-75 ml-3" id="titleInput">
+				<input type="text" class="form-control w-75 ml-3" id="titleInput">
 			</div>
 			<div>
 				<textarea id="summernote" class="contentInput"></textarea>
 			</div>
 		 	<form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="캠핑장" id="keyword" size="15"> 
-                    <button type="submit">검색하기</button> 
+                    캠핑장 이름 : <input type="text" value="캠핑장" id="keyword" size="15" class="form-control col-2"> 
+                    <button type="submit" class="btn btn-primary mt-1 mb-3">검색하기</button> 
             </form>
 			<div id="map" style="width:100%;height:350px;"></div>
 			<div class="d-flex justify-content-center">
@@ -185,7 +185,6 @@
 			let title = $("#titleInput").val();
 			let content = $(".contentInput").val();
 			
-			
 			if(title == "") {
 				alert("제목을 입력하세요");
 				return ;
@@ -200,11 +199,11 @@
 			
 			$.ajax({
 				type:"post"
-				, url:"/post/eating-diary/create"
-				, data:{"title":title, "content":content}
+				, url:"/post/camping-diary/create"
+				, data:{"title":title, "content":content, "mapPath":mapPath}
 				, success:function(data) {
 					if(data.result == "success") {
-						location.href = "/post/main/eating-view";
+						location.href = "/post/main/camping-view";
 					} else {
 						alert("글쓰기 실패");
 					}

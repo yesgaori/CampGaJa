@@ -8,7 +8,7 @@
 					<a href="/post/main/diary-view" class="list-group-item list-group-item-action">캠핑후기</a>
 					<a href="/post/main/eating-view" class="list-group-item list-group-item-action">캠핑 먹부림</a>
 					<a href="/post/main/item-view" class="list-group-item list-group-item-action">장비추천</a>
-					<a href="#" class="list-group-item list-group-item-action">캠퍼모집</a>
+					<a href="/post/main/recruitment-view" class="list-group-item list-group-item-action">캠퍼모집</a>
 				</div>
 			</ul>
 		</nav>

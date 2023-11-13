@@ -22,23 +22,23 @@
 		<hr>
 		<div class="d-flex justify-content-between">
 			<div>
-				<h2>${itemList.title }</h2>
+				<h2>${recruitmentList.title }</h2>
 				<div class="d-flex">
-					<h4><i class="bi bi-person-fill">${itemList.name }</i></h4>
-					<h4><i class="bi bi-stars ml-5">${itemList.averagePoint}</i></h4>
+					<h4><i class="bi bi-person-fill">${recruitmentList.name }</i></h4>
+					<h4><i class="bi bi-stars ml-5">${recruitmentList.personnelCount} / ${recruitmentList.personnel }</i></h4>
 				</div>
-				<div>${itemList.createdAt }</div>
+				<div>${recruitmentList.createdAt }</div>
 			</div>
 			<div class="mr-3 mt-3">
 				<%-- 로그인 한 사용자의 게시글에만 more-btn 노출 --%>
-				<c:if test="${itemList.userId eq userId }">
-				<i class="bi bi-gear mr-2 mt-1 more-btn" style="font-size:2rem;" data-toggle="modal" data-post-id="${itemList.id }") data-target="#exampleModalCenter"></i>
+				<c:if test="${recruitmentList.userId eq userId }">
+				<i class="bi bi-gear mr-2 mt-1 more-btn" style="font-size:2rem;" data-toggle="modal" data-post-id="${recruitmentList.id }") data-target="#exampleModalCenter"></i>
 				</c:if>
 			</div>
 		</div>
 		<hr>
 		<div>
-			<h4>${itemList.content }</h4>
+			<h4>${recruitmentList.content }</h4>
 			<hr class="mt-5 mb-5">
 		</div>
 		<div class="d-flex justify-content-center align-items-center">
@@ -47,51 +47,30 @@
 
 			</div>
 			<div class="d-flex justify-content-center align-items-center">
-				<h1 class="text-success">${itemList.averagePoint}</h1><h5>/5.0</h5>
+				<div>
+					<h4>모집 완료인원</h4>
+					<div class="d-flex justify-content-center align-items-center">
+						<h1 class="text-success text-center">${recruitmentList.personnelCount}</h1><h5>/ ${recruitmentList.personnel }</h5>
+					</div>
+				</div>
 			</div>
-			<h4>평가개수 ${itemList.starPointCount }개</h4>
+			<h4>신청개수 ${recruitmentList.participantsCount }개</h4>
 			</div>
 		</div>	
 		<div class="mt-5 justify-content-center">
-			<c:forEach var="comment" items="${itemList.starPointList }">
-				<hr>
-				<div class="d-flex">							
-					<i class="bi bi-person-square"></i>
-					<div class="d-flex">
-						<div>
-							<h5>${comment.loginId }</h5>
-							<h5>${comment.starPoint }</h5>
-						</div>
-						<div class="ml-3">${comment.content }</div>
-					</div>
-				</div>
-				<hr>
-			</c:forEach>
 			<c:choose>
-				<c:when test="${itemList.starPoint }">
-					<div class="d-flex align-items-center justify-content-center contain">
-						<input type="text" class="col-10 form-control" id="commentInput${itemList.id }"></input>
-						<select name="star-point">
-						    <option value="">평점선택</option>
-						    <option value="0.5">0.5</option>
-						    <option value="1" selected="selected">1</option>
-						    <option value="1.5">1.5</option>
-						    <option value="2">2</option>
-						    <option value="2.5">2.5</option>
-						    <option value="3">3</option>
-						    <option value="3.5">3.5</option>
-						    <option value="4">4</option>
-						    <option value="4.5">4.5</option>
-						    <option value="5">5</option>
-						</select>
-						<button type="button" class="btn btn-primary comment-btn" data-post-id="${itemList.id }" >게시</button>
-					</div>
+				<c:when test="${recruitmentList.confirm}">
+					<h3 class="text-center">신청한 모집입니다.</h3>	
+				</c:when>
+				<c:when test="${recruitmentList.loginId == recruitmentList.userId}">
+					<h3 class="text-center">내가 작성한 모집</h3>	
 				</c:when>
 				<c:otherwise>
-					<h3 class="text-center">평가한 제품입니다.</h3>
+					<div class="d-flex align-items-center justify-content-center contain">	
+						<a href="/post/recruitment/participants-view?postId=${recruitmentList.id }" class="btn btn-primary">참여신청</a>
+					</div>
 				</c:otherwise>
 			</c:choose>
-
 		</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
@@ -125,35 +104,6 @@
 		$(document).ready(function() {
 			
 			
-			$(".comment-btn").on("click", function() {
-				
-				
-				let postId = $(this).data("post-id");
-				let comment = $("#commentInput" + postId).val();
-				let starPoint = $("select[name=star-point]").val();
-				
-				$.ajax({
-					type:"post"
-					, url:"/post/star-point"
-					, data:{"postId":postId, "content":comment, "starPoint":starPoint}
-					, success:function(data) {
-						
-						if(data.result == "success") {
-
-							location.reload();
-							
-						}else {
-							alert("댓글 작성 실패")
-						}
-						
-					}
-					,error:function() {
-						alert("댓글 작성 에러")
-					}
-				});
-				
-				
-			});
 			
 		});
 	

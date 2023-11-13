@@ -1,6 +1,7 @@
 package com.yesgaori.campinggaja.post.service;
 
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +13,20 @@ import com.yesgaori.campinggaja.comment.dto.CommentDetail;
 import com.yesgaori.campinggaja.comment.service.CommentService;
 import com.yesgaori.campinggaja.common.FileManager;
 import com.yesgaori.campinggaja.like.service.LikeService;
+import com.yesgaori.campinggaja.participants.dto.ParticipantsDetail;
+import com.yesgaori.campinggaja.participants.service.ParticipantsService;
 import com.yesgaori.campinggaja.post.domain.CampingDiaryPost;
 import com.yesgaori.campinggaja.post.domain.EatingDiaryPost;
 import com.yesgaori.campinggaja.post.domain.ItemPost;
+import com.yesgaori.campinggaja.post.domain.RecruitmentPost;
 import com.yesgaori.campinggaja.post.dto.CampingMainList;
 import com.yesgaori.campinggaja.post.dto.EatingDetail;
 import com.yesgaori.campinggaja.post.dto.EatingMainList;
 import com.yesgaori.campinggaja.post.dto.ItemDetail;
 import com.yesgaori.campinggaja.post.dto.ItemMainList;
 import com.yesgaori.campinggaja.post.dto.PostDetail;
+import com.yesgaori.campinggaja.post.dto.RecruitmentDetail;
+import com.yesgaori.campinggaja.post.dto.RecruitmentMainList;
 import com.yesgaori.campinggaja.post.repository.PostRepository;
 import com.yesgaori.campinggaja.starpoint.dto.StarPointDetail;
 import com.yesgaori.campinggaja.starpoint.service.StarPointService;
@@ -40,6 +46,8 @@ public class PostService {
 	private CommentService commentService;
 	@Autowired
 	private StarPointService starPointService;
+	@Autowired
+	private ParticipantsService participantsService;
 	
 	public int creatDiaryPost(int userId, String title, String content, String mapPath) {
 		
@@ -94,7 +102,6 @@ public class PostService {
 			
 		int userId = post.getUserId();
 		User user = userService.getUserById(userId);
-		// 좋아요 개수 조회
 		int likeCount = likeService.countLike(post.getId(), 1);
 		boolean isLike = likeService.isLike(post.getId(), loginUserId, 1);
 		
@@ -168,7 +175,6 @@ public class PostService {
 			
 		int userId = post.getUserId();
 		User user = userService.getUserById(userId);
-		// 좋아요 개수 조회
 		int likeCount = likeService.countLike(post.getId(), 2);
 		boolean isLike = likeService.isLike(post.getId(), loginUserId, 2);
 		
@@ -251,7 +257,6 @@ public class PostService {
 			
 		int userId = post.getUserId();
 		User user = userService.getUserById(userId);
-		// 좋아요 개수 조회
 		int starPointCount = starPointService.countStarPoint(post.getId());
 		boolean isStarPoint = starPointService.isStarPoint(post.getId(), loginUserId);
 		
@@ -284,6 +289,110 @@ public class PostService {
 
 		
 		return itemDetail;
+		
+	}
+	
+	public int creatRecruitmentPost(
+									int userId
+									, String title
+									, String content
+									, String mapPath
+									, int personnel
+									, String appointmentStartDate
+									, String appointmentEndDate
+									, int info) {
+		
+		
+		return postRepository.creatRecruitment(
+													userId
+													, title
+													, content
+													, mapPath
+													, personnel
+													, appointmentStartDate
+													, appointmentEndDate
+													, info);
+		
+	}
+	
+	
+	public List<RecruitmentMainList> selectRecruitmentList() {
+		
+		List<RecruitmentMainList> recruitmentMain = new ArrayList<>(); 
+		List<RecruitmentPost> recruitmentList = postRepository.selectRecruitmentList();
+		
+		for(RecruitmentPost post:recruitmentList) {
+		
+				
+			User user = userService.getUserById(post.getUserId());
+			
+			int approveCount = participantsService.approveCountParticipants(post.getId());
+			int participants = participantsService.countParticipants(post.getId());
+			RecruitmentMainList recruitmentMainList = RecruitmentMainList.builder()
+													.postId(post.getId())
+													.title(post.getTitle())
+													.userName(user.getName())
+													.info(post.getInfo())
+													.personnel(post.getPersonnel())
+													.personnelCount(approveCount)
+													.participants(participants)
+													.mapPath(post.getMapPath())
+													.startDate(post.getAppointmentStartDate())
+													.endDate(post.getAppointmentEndDate())
+													.createdAt(post.getCreatedAt())
+													.build();
+			
+			recruitmentMain.add(recruitmentMainList);
+			
+		}
+		
+		return recruitmentMain;
+		
+		
+	}
+	
+	public RecruitmentPost selectRecruitment(int id) {
+		
+		return postRepository.selectRecruitment(id);
+	}
+	
+	public RecruitmentDetail getRecruitment(
+											int loginUserId
+											, int id) {
+		
+		RecruitmentPost post = postRepository.selectRecruitment(id);
+			
+		int userId = post.getUserId();
+		User user = userService.getUserById(userId);
+		
+		int participantsCount = participantsService.countParticipants(post.getId());
+		int approveCount = participantsService.approveCountParticipants(post.getId());
+		boolean isParticipants = participantsService.isParticipants(post.getId(), loginUserId);
+		
+		
+		List<ParticipantsDetail> participantsList = participantsService.getParticipantsList(post.getId());
+		
+		RecruitmentDetail recruitmentDetail = RecruitmentDetail.builder()
+											.id(post.getId())
+											.userId(userId)
+											.loginId(loginUserId)
+											.name(user.getName())
+											.title(post.getTitle())
+											.content(post.getContent())
+											.info(post.getInfo())
+											.confirm(isParticipants)
+											.participantsCount(participantsCount)
+											.personnel(post.getPersonnel())
+											.personnelCount(approveCount)
+											.startDate(post.getAppointmentStartDate())
+											.endDate(post.getAppointmentEndDate())
+											.mapPath(post.getMapPath())
+											.createdAt(post.getCreatedAt())
+											.build();
+
+			
+	
+		return recruitmentDetail;
 		
 	}
 }

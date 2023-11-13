@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Camping GaJa - 캠핑후기 작성</title>
+<title>Camping GaJa - 캠퍼모집 작성</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
@@ -17,6 +17,9 @@
 <!-- services 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=be500f79d6dd785c2fe5471580292453&libraries=services"></script>
 
+<!-- 데이트픽커 -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -25,14 +28,25 @@
 		<section>
 			<div class="d-flex mb-3 mt-5">
 				<h3>제목 : </h3>
-				<input type="text" class="w-75 ml-3" id="titleInput">
+				<input type="text" class="contentInput w-75 ml-3" id="titleInput">
 			</div>
 			<div>
-				<textarea id="summernote" class="contentInput"></textarea>
+				<textarea id="summernote" class="contentInput">
+					작성요령 : 장소, 일자, 자격요건, 나이대 등
+				</textarea>
 			</div>
-		 	<form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="캠핑장" id="keyword" size="15"> 
-                    <button type="submit">검색하기</button> 
+			<div class="mt-3 mb-3">
+				<h4>모집 인원</h4>
+				<input type=number id="personnel" class="form-control">
+			</div>
+			<div>
+				<label>예약날짜</label>
+   	        	<input type="text" id="datepicker1" class="form-control">
+       			<input type="text" id="datepicker2" class="form-control">
+           	</div>
+		 	<form onsubmit="searchPlaces(); return false;" class="mt-5 mb-3">
+                    캠핑장 이름 : <input type="text" value="캠핑장" id="keyword" size="15"  class="form-control col-2"> 
+                    <button type="submit" class="btn btn-primary mt-1 mb-3">검색하기</button> 
             </form>
 			<div id="map" style="width:100%;height:350px;"></div>
 			<div class="d-flex justify-content-center">
@@ -47,6 +61,31 @@
 	
 	var mapPath;
 	
+	   $(function() {
+	       //input을 datepicker로 선언
+	       $("#datepicker1,#datepicker2").datepicker({
+	           dateFormat: 'yy-mm-dd' //달력 날짜 형태
+	           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+	           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+	           ,changeYear: true //option값 년 선택 가능
+	           ,changeMonth: true //option값  월 선택 가능                
+	           ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+	           ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+	           ,buttonImageOnly: true //버튼 이미지만 깔끔하게 보이게함
+	           ,buttonText: "선택" //버튼 호버 텍스트              
+	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+	           ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+	           ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)  
+	       });                    
+	       
+	       //초기값을 오늘 날짜로 설정해줘야 합니다.
+	       $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
+	   });
+	   
 	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 	var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
@@ -120,6 +159,14 @@
 	
 	$(document).ready(function () {
 		
+        // 데이트 피커 셋팅
+        $( "#date" ).datepicker({
+            minDate:0, 
+            dateFormat: "yy-mm-dd",
+        });
+		
+		
+		
 		$('#summernote').summernote({
 	        placeholder: 'Hello stand alone ui',
 	        tabsize: 2,
@@ -184,6 +231,9 @@
 			
 			let title = $("#titleInput").val();
 			let content = $(".contentInput").val();
+			let appointmentStartDate = $("#datepicker1").val();
+			let appointmentEndDate = $("#datepicker2").val();
+			let personnel = $("#personnel").val();
 			
 			
 			if(title == "") {
@@ -200,11 +250,11 @@
 			
 			$.ajax({
 				type:"post"
-				, url:"/post/eating-diary/create"
-				, data:{"title":title, "content":content}
+				, url:"/post/recruitment/create"
+				, data:{"title":title, "content":content, "mapPath":mapPath, "personnel":personnel, "appointmentStartDate":appointmentStartDate, "appointmentEndDate":appointmentEndDate, "info":0}
 				, success:function(data) {
 					if(data.result == "success") {
-						location.href = "/post/main/eating-view";
+						location.href = "/post/main/recruitment-view";
 					} else {
 						alert("글쓰기 실패");
 					}
@@ -217,9 +267,7 @@
 			
 		});
 		
-		
-		
-		
+
     });
 	
 	</script>

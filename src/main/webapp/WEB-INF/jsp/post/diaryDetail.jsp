@@ -32,7 +32,7 @@
 			<div class="mr-3 mt-3">
 				<%-- 로그인 한 사용자의 게시글에만 more-btn 노출 --%>
 				<c:if test="${postList.userId eq userId }">
-				<i class="bi bi-gear mr-2 mt-1 more-btn" style="font-size:2rem;" data-toggle="modal" data-post-id="${postList.id }") data-target="#exampleModalCenter"></i>
+				<i class="bi bi-gear mr-2 mt-1 more-btn" style="font-size:2rem;" data-toggle="modal" data-post-id="${postList.id }" data-target="#exampleModalCenter"></i>
 				</c:if>
 			</div>
 		</div>

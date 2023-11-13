@@ -18,6 +18,8 @@ import com.yesgaori.campinggaja.post.dto.EatingMainList;
 import com.yesgaori.campinggaja.post.dto.ItemDetail;
 import com.yesgaori.campinggaja.post.dto.ItemMainList;
 import com.yesgaori.campinggaja.post.dto.PostDetail;
+import com.yesgaori.campinggaja.post.dto.RecruitmentDetail;
+import com.yesgaori.campinggaja.post.dto.RecruitmentMainList;
 import com.yesgaori.campinggaja.post.service.PostService;
 
 @RequestMapping("/post")
@@ -127,5 +129,36 @@ public class PostController {
 		
 		return "post/itemDetail";
 	}
+	
+	@GetMapping("/recruitment/create-view")
+	public String recruitmentCreateView() {
+			
+		return"/post/recruitmentInput";
+	}
+	
+	@GetMapping("/main/recruitment-view")
+	public String recruitmentMainView(Model model) {
+			
+		List<RecruitmentMainList> recruitmentList = postService.selectRecruitmentList();
+
+		model.addAttribute("recruitmentList", recruitmentList);
+			
+			return"/post/recruitmentMain";
+	}
+	
+	@GetMapping("/recruitment/detail-view")
+	public String recruitmentDetail(@RequestParam("id") int id
+							, Model model
+							, HttpSession session) {
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		RecruitmentDetail recruitmentList = postService.getRecruitment(userId, id);
+		
+		model.addAttribute("recruitmentList", recruitmentList);
+		
+		return "post/recruitmentDetail";
+	}
+	
 	
 }

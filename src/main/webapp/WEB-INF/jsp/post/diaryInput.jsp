@@ -203,7 +203,7 @@
 				, data:{"title":title, "content":content, "mapPath":mapPath}
 				, success:function(data) {
 					if(data.result == "success") {
-						location.href = "/post/main/camping-view";
+						location.href = "/post/main/diary-view";
 					} else {
 						alert("글쓰기 실패");
 					}

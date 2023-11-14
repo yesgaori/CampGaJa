@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yesgaori.campinggaja.participants.domain.RecruitmentParticipants;
+import com.yesgaori.campinggaja.participants.dto.AlarmDetail;
 import com.yesgaori.campinggaja.participants.dto.ParticipantsAlarm;
 import com.yesgaori.campinggaja.participants.dto.ParticipantsDetail;
 import com.yesgaori.campinggaja.participants.repository.ParticipantsRepository;
@@ -159,27 +160,5 @@ public class ParticipantsService {
 		return participantsAlarmList;
 	}
 	
-	public List<Map> recruitmentTitle(int userId) {
-		
-		List<RecruitmentPost> recruitmentList = postRepository.findRecruitmentPostList(userId);
-		
-		Map<String, Object> recruitmentTitle = new HashMap<>();
-		
-		List<Map> result = new ArrayList<>();
-		
-		for(RecruitmentPost post:recruitmentList) {
-			
-			int approveCount = participantsRepository.approveCountParticipants(post.getId());
-			
-			recruitmentTitle.put("postId" + post.getId(), post.getId());
-			
-			recruitmentTitle.put("title" + post.getId(),post.getTitle());
-			
-			recruitmentTitle.put("personnel" + post.getId(), approveCount + "/" + post.getPersonnel());
-			
-			result.add(recruitmentTitle);
-		}
-		
-		return result;
-	}
+
 }

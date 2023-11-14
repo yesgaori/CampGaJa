@@ -16,54 +16,52 @@
 		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
 		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
-			<c:forEach var="title" items="${titleList }">
+			<c:forEach var="post" items="${postList }">
 				<table class="table text-center">
-					<div id="recruitmentTitle${title.postId }">
-						<h2>${title.title}<a class="text-success">${title.personnel}</a></h2>
+					<div">
+						<h3>${post.title}<a class="text-success">${post.approvePersonnel }</a>/${post.personnel}</h3>
 					</div>
-					<c:forEach var="post" items="${postList }">
-						<thead>
-							<tr>
-								<th class="col-2">자기소개.</th>
-								<th class="col-4">나이/성별/차량/장비</th>
-								<th class="col-2">Kakao</th>
-								<th class="col-2">Date</th>
-								<th class="col-2">Send</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><i class="bi bi-card-text mr-2 mt-1 more-btn" style="font-size:2rem;" data-toggle="modal" data-target="#exampleModalCenter${post.participantsId }"></i></td>
-								<td>${post.age }/${post.qualifications }</td>
-								<td>${post.kakao }</td>
-								<td>
-									${post.appointmentStartDate } ~ 
-									${post.appointmentEndDate }
-								</td>
-								<td>
-									<button type="button" class="btn btn-success">승인</button>
-									<button type="button" class="btn btn-danger reject-btn" data-participants-id="${post.participantsId }">반려</button>
-								</td>
-							</tr>
-						</tbody>
-										<!-- Modal -->
-						<div class="modal fade" id="exampleModalCenter${post.participantsId }" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-						  <div class="modal-dialog modal-dialog-centered" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
-						        </button>
-						      </div>
-						      <div class="modal-body d-flex justify-content-center">
-								<div>${post.content }</div>
-						      </div>
-						      <div class="modal-footer">
-						      </div>
-						    </div>
-						  </div>
-						</div>
-					</c:forEach>
+					<thead>
+						<tr>
+							<th class="col-2">자기소개.</th>
+							<th class="col-4">나이/성별/차량/장비</th>
+							<th class="col-2">Kakao</th>
+							<th class="col-2">Date</th>
+							<th class="col-2">Send</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><i class="bi bi-card-text mr-2 mt-1 more-btn" style="font-size:2rem;" data-toggle="modal" data-target="#exampleModalCenter${post.participantsId }"></i></td>
+							<td>${post.age }/${post.qualifications }</td>
+							<td>${post.kakao }</td>
+							<td>
+								${post.appointmentStartDate } ~ 
+								${post.appointmentEndDate }
+							</td>
+							<td>
+								<button type="button" class="btn btn-success">승인</button>
+								<button type="button" class="btn btn-danger reject-btn" data-participants-id="${post.participantsId }">반려</button>
+							</td>
+						</tr>
+					</tbody>
+									<!-- Modal -->
+					<div class="modal fade" id="exampleModalCenter${post.participantsId }" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body d-flex justify-content-center">
+							<div>${post.content }</div>
+					      </div>
+					      <div class="modal-footer">
+					      </div>
+					    </div>
+					  </div>
+					</div>
 				</c:forEach>
 			</table>
 		</section>

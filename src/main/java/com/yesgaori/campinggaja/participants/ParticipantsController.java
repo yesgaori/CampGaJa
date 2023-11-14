@@ -1,7 +1,6 @@
 package com.yesgaori.campinggaja.participants;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yesgaori.campinggaja.participants.dto.AlarmDetail;
 import com.yesgaori.campinggaja.participants.dto.ParticipantsAlarm;
 import com.yesgaori.campinggaja.participants.service.ParticipantsService;
 import com.yesgaori.campinggaja.post.domain.RecruitmentPost;
@@ -43,10 +43,9 @@ public class ParticipantsController {
 		
 		List<ParticipantsAlarm> result = participantsService.getParticipantsPostList(userId);
 		
-		List<Map> title = participantsService.recruitmentTitle(userId);
+
 		
 		model.addAttribute("postList", result);
-		model.addAttribute("titleList", title);
 		
 		return "/post/alarm";
 	}

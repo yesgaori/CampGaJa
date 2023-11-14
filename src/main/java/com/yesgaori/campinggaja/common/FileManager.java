@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileManager {
 	
-public static final String FILE_UPLOAD_PATH = "D:\\YesGaori\\PF\\upload\\campinggaja";
+public static final String FILE_UPLOAD_PATH = "/home/ec2-user/web/campinggaja/upload";
 	
 	public static String saveFile(int userId, MultipartFile file) {
 		

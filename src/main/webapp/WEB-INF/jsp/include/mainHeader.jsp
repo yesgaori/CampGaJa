@@ -6,7 +6,7 @@
 	<div class="mainHead">
 	<div class="d-flex justify-content-center align-items-center mt-4">
 		<img src="/static/images/camp-1849133_1280.png" width="50px" height="50px">
-		<h1 class="display-5">CampingGaJa</h1>
+		<a href="/post/main-view"><h1 class="display-5 text-dark">CampingGaJa</h1></a>
 	</div>
 	</div>
 		<div class="d-flex align-items-center justify-content-end mainHead">

@@ -59,7 +59,7 @@
 		WHERE
 			`id` = #{id}
 	
-	</select>
+	</select>	
 	
 	<insert id="creatEatingPost" parameterType="map">
 	
@@ -263,7 +263,24 @@
 	
 	</select>
 
+	<insert id="inquiryCreate" parameterType="map">
+	
+		INSERT INTO
+		
+			`inquiry`
+		(
+			`userId`
+			, `inquiry`
 
+		)
+		VALUE
+		(
+			#{userId}
+			, #{inquiry}
+
+		)
+		
+	</insert>
 
 
 

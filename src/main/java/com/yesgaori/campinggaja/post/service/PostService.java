@@ -395,4 +395,9 @@ public class PostService {
 		return recruitmentDetail;
 		
 	}
+	
+	public int inquiryCreate(int userId, String inquiry) {
+		
+		return postRepository.inquiryCreate(userId, inquiry);
+	}
 }

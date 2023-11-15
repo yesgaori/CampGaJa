@@ -160,5 +160,11 @@ public class PostController {
 		return "post/recruitmentDetail";
 	}
 	
+	@GetMapping("/inquiry-view")
+	public String inquiryView() {
+		
+		return "/post/inquiry";
+	}
+	
 	
 }

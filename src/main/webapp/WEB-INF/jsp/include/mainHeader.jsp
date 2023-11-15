@@ -13,7 +13,7 @@
 			<c:if test="${not empty userId }">
 				<div class="mr-3">${userLoginId }님 <a href="/user/logout">로그아웃</a></div>
 			</c:if>
-		<a href="/post/alarm-view" class="bi bi-chat-dots more-btn mr-2"></a>
-		<i class="bi bi-gear"></i>
+		<a href="/post/alarm-view" class="bi bi-chat-dots more-btn mr-2 text-danger"></a>
+		<a href="/post/inquiry-view" class="bi bi-gear text-success"></a>
 	</div>
 </header>

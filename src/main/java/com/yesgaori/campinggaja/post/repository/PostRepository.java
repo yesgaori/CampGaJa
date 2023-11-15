@@ -64,4 +64,8 @@ public interface PostRepository {
 	
 	public List<RecruitmentPost> findRecruitmentPostList(@Param("userId") int userId);
 	
+	public int inquiryCreate(
+							@Param("userId") int userId
+							, @Param("inquiry") String inquiry);
+	
 	}

@@ -140,4 +140,25 @@ public class PostRestController {
 		return result;
 	}
 	
+	@PostMapping("/inquiry/create")
+	public Map<String, String> inquiryCreate(
+											@RequestParam("inquiry") String inquiry
+											, HttpSession session){
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = postService.inquiryCreate(userId, inquiry);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		}else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+		
+	}
+	
 }

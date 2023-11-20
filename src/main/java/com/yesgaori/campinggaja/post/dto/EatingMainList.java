@@ -13,6 +13,7 @@ public class EatingMainList {
 	private String title;
 	private String userName;
 	private int likeCount;
+	private String thumbnailPath;
 	private Date createdAt;
 	
 }

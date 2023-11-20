@@ -50,6 +50,26 @@
 		
 	
 	</select>
+	<select id="selectCountList" parameterType="map" resultType="int">
+		
+		SELECT
+			postId
+			, count(1) as `count`
+		FROM
+			`like`
+		WHERE			
+			`category` = #{category}
+		GROUP BY
+			`postId`
+		ORDER BY
+			`count` DESC
+		LIMIT
+			3
+		
+	
+	</select>
+	
+	
 	<delete id="deleteLikeByPostId" parameterType="int">
 	
 		DELETE FROM

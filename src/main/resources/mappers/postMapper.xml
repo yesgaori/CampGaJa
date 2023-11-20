@@ -4,7 +4,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yesgaori.campinggaja.post.repository.PostRepository">
-
+	
 	<insert id="creatDiaryPost" parameterType="map">
 	
 		INSERT INTO
@@ -15,6 +15,7 @@
 			, `title`
 			, `content`
 			, `mapPath`
+			, `thumbnailPath`
 
 		)
 		VALUE
@@ -23,6 +24,7 @@
 			, #{title}
 			, #{content}
 			, #{mapPath}
+			, #{thumbnailPath}
 		)
 		
 	</insert>
@@ -35,6 +37,7 @@
 			, `title`
 			, `content`
 			, `mapPath`
+			, `thumbnailPath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -44,6 +47,7 @@
 	
 	</select>
 	
+	
 	<select id="selectDetail" resultType="com.yesgaori.campinggaja.post.domain.CampingDiaryPost">
 	
 		SELECT
@@ -52,6 +56,7 @@
 			, `title`
 			, `content`
 			, `mapPath`
+			, `thumbnailPath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -70,6 +75,7 @@
 			`userId`
 			, `title`
 			, `content`
+			, `thumbnailPath`
 
 		)
 		VALUE
@@ -77,6 +83,7 @@
 			#{userId}
 			, #{title}
 			, #{content}
+			, #{thumbnailPath}
 		)
 		
 	</insert>
@@ -88,6 +95,7 @@
 			,`userId`
 			, `title`
 			, `content`
+			, `thumbnailPath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -104,6 +112,7 @@
 			,`userId`
 			, `title`
 			, `content`
+			, `thumbnailPath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -123,6 +132,7 @@
 			, `title`
 			, `content`
 			, `starPoint`
+			, `thumbnailPath`
 
 		)
 		VALUE
@@ -131,6 +141,7 @@
 			, #{title}
 			, #{content}
 			, #{starPoint}
+			, #{thumbnailPath}
 		)
 		
 	</insert>
@@ -143,6 +154,7 @@
 			, `title`
 			, `content`
 			, `starPoint`
+			, `thumbnailPath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -160,6 +172,7 @@
 			, `title`
 			, `content`
 			, `starPoint`
+			, `thumbnailPath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -183,6 +196,7 @@
 			, `appointmentStartDate`
 			, `appointmentEndDate`
 			, `info`
+			, `thumbnailPath`
 
 		)
 		VALUE
@@ -195,6 +209,7 @@
 			, #{param6}
 			, #{param7}
 			, #{param8}
+			, #{param9}
 		)
 		
 	</insert>
@@ -211,6 +226,7 @@
 			, `appointmentStartDate`
 			, `appointmentEndDate`
 			, `info`
+			, `thumbnailPath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -232,6 +248,7 @@
 			, `appointmentStartDate`
 			, `appointmentEndDate`
 			, `info`
+			, `thumbnailPath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
@@ -253,6 +270,7 @@
 			, `appointmentStartDate`
 			, `appointmentEndDate`
 			, `info`
+			, `thumbnailPath`
 			, `createdAt`
 			, `updatedAt`
 		FROM

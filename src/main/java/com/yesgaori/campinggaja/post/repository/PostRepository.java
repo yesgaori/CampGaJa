@@ -18,7 +18,8 @@ public interface PostRepository {
 				@Param("userId") int userId
 				, @Param("title") String title
 				, @Param("content") String content
-				, @Param("mapPath") String mapPath);
+				, @Param("mapPath") String mapPath
+				, @Param("thumbnailPath") String thumbnailPath);
 	
 	
 	public List<CampingDiaryPost> selectDiary();
@@ -28,7 +29,8 @@ public interface PostRepository {
 	public int creatEatingPost(
 			@Param("userId") int userId
 			, @Param("title") String title
-			, @Param("content") String content);
+			, @Param("content") String content
+			, @Param("thumbnailPath") String thumbnailPath);
 
 
 	public List<EatingDiaryPost> selectEatingList();
@@ -39,7 +41,8 @@ public interface PostRepository {
 			@Param("userId") int userId
 			, @Param("title") String title
 			, @Param("content") String content
-			, @Param("starPoint") double starPoint);
+			, @Param("starPoint") double starPoint
+			, @Param("thumbnailPath") String thumbnailPath);
 
 
 	public List<ItemPost> selectItemList();
@@ -55,7 +58,8 @@ public interface PostRepository {
 			, @Param("personnel") int personnel
 			, @Param("appointmentStartDate") String appointmentStartDate
 			, @Param("appointmentEndDate") String appointmentEndDate
-			, @Param("info") int info);
+			, @Param("info") int info
+			, @Param("thumbnailPath") String thumbnailPath);
 
 
 	public List<RecruitmentPost> selectRecruitmentList();

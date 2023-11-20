@@ -18,6 +18,17 @@
 		<section>
 			<div id="section1">
 				<h2 class="pt-2 pl-2">인기 캠핑후기</h2>	
+				
+				<div class="d-flex">
+					<c:forEach var="post" items="${bestList }">
+					<a href="/post/camping-diary/detail-view?id=${post.postId }&category=1" class="mr-5 ml-3 text-dark">
+						<img src="${post.thumbnailPath }" width="300px" height="250px">
+						<div>${post.title }</div>
+						<div>${post.count }</div>
+					</a>
+					</c:forEach>
+				</div>
+				
 			</div>
 			<div class="d-flex">
 				<table class="table text-center">

@@ -1,6 +1,5 @@
 package com.yesgaori.campinggaja.post;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,11 +45,12 @@ public class PostRestController {
 								@RequestParam("title") String title
 								, @RequestParam("content") String content
 								, @RequestParam("mapPath") String mapPath
+								, @RequestParam("thumbnailPath") String thumbnailPath
 								, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = postService.creatDiaryPost(userId, title, content, mapPath);
+		int count = postService.creatDiaryPost(userId, title, content, mapPath, thumbnailPath);
 		
 		Map<String, String> result = new HashMap<>();
 		
@@ -67,11 +67,12 @@ public class PostRestController {
 	public Map<String, String> creatEatingPost(
 								@RequestParam("title") String title
 								, @RequestParam("content") String content
+								, @RequestParam("thumbnailPath") String thumbnailPath
 								, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = postService.creatEatingPost(userId, title, content);
+		int count = postService.creatEatingPost(userId, title, content, thumbnailPath);
 		
 		Map<String, String> result = new HashMap<>();
 		
@@ -89,11 +90,12 @@ public class PostRestController {
 								@RequestParam("title") String title
 								, @RequestParam("content") String content
 								, @RequestParam("starPoint") double starPoint
+								, @RequestParam("thumbnailPath") String thumbnailPath
 								, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
-		int count = postService.creatItemPost(userId, title, content, starPoint);
+		int count = postService.creatItemPost(userId, title, content, starPoint, thumbnailPath);
 		
 		Map<String, String> result = new HashMap<>();
 		
@@ -115,6 +117,7 @@ public class PostRestController {
 								, @RequestParam("appointmentStartDate") String appointmentStartDate
 								, @RequestParam("appointmentEndDate") String appointmentEndDate
 								, @RequestParam("info") int info
+								, @RequestParam("thumbnailPath") String thumbnailPath
 								, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
@@ -127,7 +130,8 @@ public class PostRestController {
 											, personnel
 											, appointmentStartDate
 											, appointmentEndDate
-											, info);
+											, info
+											, thumbnailPath);
 		
 		Map<String, String> result = new HashMap<>();
 		

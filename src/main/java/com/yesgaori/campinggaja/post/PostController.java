@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.yesgaori.campinggaja.post.dto.CampingBestList;
 import com.yesgaori.campinggaja.post.dto.CampingMainList;
 import com.yesgaori.campinggaja.post.dto.EatingDetail;
 import com.yesgaori.campinggaja.post.dto.EatingMainList;
@@ -46,8 +47,11 @@ public class PostController {
 	public String diaryMainView(Model model) {
 			
 		List<CampingMainList> diaryList = postService.selectDiary();
+		List<CampingBestList> bestList = postService.campingBestList();
+		
 		
 		model.addAttribute("diaryList", diaryList);
+		model.addAttribute("BestList", bestList);
 			
 			return"/post/diaryMain";
 	}

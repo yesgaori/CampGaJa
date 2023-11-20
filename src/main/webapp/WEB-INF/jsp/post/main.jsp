@@ -16,16 +16,59 @@
 		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
 			<div id="section1">
-				<h2 class="pt-2 pl-2">인기 캠핑후기</h2>	
+				<h2 class="pt-2 pl-2">인기 캠핑후기</h2>
+				<div class="d-flex">
+					<c:forEach var="post" items="${bestList1 }">
+					<a href="/post/camping-diary/detail-view?id=${post.postId }&category=1" class="mr-5 ml-3 text-dark">
+						<img src="${post.thumbNailPath }" width="300px" height="250px">
+						<div>${post.title }</div>
+						<div>${post.count }</div>
+					</a>
+					</c:forEach>
+				</div>	
 			</div>
 			<div id="section2">
 				<h2 class="pt-2 pl-2">인기 캠핑 먹부림</h2>
+				<div class="d-flex">
+					<c:forEach var="post" items="${bestList2 }">
+					<a href="/post/eating-diary/detail-view?id=${post.postId }&category=2" class="mr-5 ml-3 text-dark">
+						<img src="${post.thumbNailPath }" width="300px" height="250px">
+						<div>${post.title }</div>
+						<div>${post.count }</div>
+					</a>
+					</c:forEach>
+				</div>	
 			</div>
 			<div id="section3">
 				<h2 class="pt-2 pl-2">인기 장비추천</h2>
+				<div class="d-flex">
+					<c:forEach var="post" items="${bestList3 }">
+					<a href="/post/item/detail-view?id=${post.postId }" class="mr-5 ml-3 text-dark">
+						<img src="${post.thumbNailPath }" width="300px" height="250px">
+						<div>${post.title }</div>
+						<div>${post.count }</div>
+					</a>
+					</c:forEach>
+				</div>		
 			</div>
 			<div id="section4">
 				<h2 class="pt-2 pl-2">인기 캠퍼모집</h2>
+				<div class="d-flex">
+					<c:forEach var="post" items="${bestList4 }">
+					<a href="/post/recruitment/detail-view?id=${post.recruitmentPostId }" class="mr-5 ml-3 text-dark">
+						<c:choose>
+							<c:when test="${post.thumbNailPath != ''}">
+								<img src="${post.thumbNailPath }" width="300px" height="250px">
+							</c:when>
+							<c:otherwise>
+								<div class="bi bi-flag" style="font-size:11rem;" class="border"></div>
+							</c:otherwise>
+						</c:choose>
+						<div>${post.title }</div>
+						<div>${post.count }</div>
+					</a>
+					</c:forEach>
+				</div>		
 			</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />

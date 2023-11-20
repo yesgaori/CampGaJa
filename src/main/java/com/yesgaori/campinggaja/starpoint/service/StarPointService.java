@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yesgaori.campinggaja.comment.dto.CommentDetail;
+import com.yesgaori.campinggaja.starpoint.domain.BestStarPoint;
 import com.yesgaori.campinggaja.starpoint.domain.StarPoint;
 import com.yesgaori.campinggaja.starpoint.dto.StarPointDetail;
 import com.yesgaori.campinggaja.starpoint.repository.StarPointRepository;
@@ -42,6 +42,12 @@ public class StarPointService {
 	public int addStarPoint(int userId, int itemPostId, String content, double starPoint) {
 		
 		return starPointRepository.insertStarPoint(userId, itemPostId, content, starPoint);
+	}
+	
+	public List<BestStarPoint> selectCountList() {
+		
+		return starPointRepository.selectCountList();
+		
 	}
 	
 	

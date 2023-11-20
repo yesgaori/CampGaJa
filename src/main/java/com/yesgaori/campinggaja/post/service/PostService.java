@@ -13,6 +13,7 @@ import com.yesgaori.campinggaja.comment.service.CommentService;
 import com.yesgaori.campinggaja.common.FileManager;
 import com.yesgaori.campinggaja.like.domain.BestLike;
 import com.yesgaori.campinggaja.like.service.LikeService;
+import com.yesgaori.campinggaja.participants.domain.BestParticipants;
 import com.yesgaori.campinggaja.participants.dto.ParticipantsDetail;
 import com.yesgaori.campinggaja.participants.service.ParticipantsService;
 import com.yesgaori.campinggaja.post.domain.CampingDiaryPost;
@@ -23,12 +24,15 @@ import com.yesgaori.campinggaja.post.dto.CampingBestList;
 import com.yesgaori.campinggaja.post.dto.CampingMainList;
 import com.yesgaori.campinggaja.post.dto.EatingDetail;
 import com.yesgaori.campinggaja.post.dto.EatingMainList;
+import com.yesgaori.campinggaja.post.dto.ItemBestList;
 import com.yesgaori.campinggaja.post.dto.ItemDetail;
 import com.yesgaori.campinggaja.post.dto.ItemMainList;
 import com.yesgaori.campinggaja.post.dto.PostDetail;
+import com.yesgaori.campinggaja.post.dto.RecruitmentBestList;
 import com.yesgaori.campinggaja.post.dto.RecruitmentDetail;
 import com.yesgaori.campinggaja.post.dto.RecruitmentMainList;
 import com.yesgaori.campinggaja.post.repository.PostRepository;
+import com.yesgaori.campinggaja.starpoint.domain.BestStarPoint;
 import com.yesgaori.campinggaja.starpoint.dto.StarPointDetail;
 import com.yesgaori.campinggaja.starpoint.service.StarPointService;
 import com.yesgaori.campinggaja.user.domain.User;
@@ -165,6 +169,31 @@ public class PostService {
 		
 	}
 	
+	public List<CampingBestList> eatingBestList(){
+		
+		List<BestLike> result = likeService.selectCountList(2);
+		
+		List<CampingBestList> success = new ArrayList<>();
+		
+		for(BestLike bestLike:result) {
+			
+			int postId = bestLike.getPostId();
+			
+			EatingDiaryPost eating = postRepository.selectEating(postId);
+			
+			CampingBestList campingBestList = CampingBestList.builder()
+											.postId(postId)
+											.count(bestLike.getCount())
+											.thumbNailPath(eating.getThumbnailPath())
+											.title(eating.getTitle())
+											.build();
+			
+			success.add(campingBestList);
+			
+		}
+		return success;
+		
+	}
 	
 	public List<EatingMainList> selectEatingList() {
 		
@@ -191,7 +220,9 @@ public class PostService {
 		}
 			return eatingMain;
 	}
-		
+	
+	
+	
 	public EatingDiaryPost selectEating(int id) {
 		
 		return postRepository.selectEating(id);
@@ -236,6 +267,32 @@ public class PostService {
 		
 		return postRepository.creatItemPost(userId, title, content, starPoint, thumbnailPath);
 		
+	}
+	
+	public List<ItemBestList> itemBestList(){
+		
+		List<BestStarPoint> result = starPointService.selectCountList();
+		
+		List<ItemBestList> success = new ArrayList<>();
+		
+		for(BestStarPoint bestStarPoint:result) {
+			
+			int postId = bestStarPoint.getItemPostId();
+			
+			ItemPost item = postRepository.selectItem(postId);
+			
+			ItemBestList itemBestList = ItemBestList.builder()
+											.postId(postId)
+											.count(bestStarPoint.getCount())
+											.thumbNailPath(item.getThumbnailPath())
+											.title(item.getTitle())
+											.build();
+			
+			success.add(itemBestList);
+			
+		}
+		
+		return success;
 	}
 	
 	
@@ -347,6 +404,32 @@ public class PostService {
 													, info
 													, thumbnailPath);
 		
+	}
+	
+	public List<RecruitmentBestList> BestParticipantsList(){
+		
+		List<BestParticipants> result = participantsService.selectCountList();
+		
+		List<RecruitmentBestList> success = new ArrayList<>();
+		
+		for(BestParticipants bestparticipants:result) {
+			
+			int postId = bestparticipants.getRecruitmentPostId();
+			
+			RecruitmentPost recruitment = postRepository.selectRecruitment(postId);
+			
+			RecruitmentBestList recruitmentBestList = RecruitmentBestList.builder()
+											.recruitmentPostId(postId)
+											.count(bestparticipants.getCount())
+											.thumbNailPath(recruitment.getThumbnailPath())
+											.title(recruitment.getTitle())
+											.build();
+			
+			success.add(recruitmentBestList);
+			
+		}
+		
+		return success;
 	}
 	
 	

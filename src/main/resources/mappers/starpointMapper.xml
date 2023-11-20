@@ -31,6 +31,23 @@
 		
 	
 	</select>
+	
+	<select id="selectCountList" parameterType="map" resultType="com.yesgaori.campinggaja.starpoint.domain.BestStarPoint">
+		
+		SELECT
+			itemPostId
+			, count(1) as `count`
+		FROM
+			`star-point`
+		GROUP BY
+			`itemPostId`
+		ORDER BY
+			`count` DESC
+		LIMIT
+			3
+		
+	
+	</select>
 
 	<insert id="insertStarPoint" parameterType="map">
 		INSERT INTO

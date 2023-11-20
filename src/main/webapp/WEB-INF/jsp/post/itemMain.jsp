@@ -19,11 +19,11 @@
 			<div id="section3">
 				<h2 class="pt-2 pl-2">인기 장비추천</h2>
 				<div class="d-flex">
-					<c:forEach var="post" items="${itemList }">
+					<c:forEach var="post" items="${bestList }">
 					<a href="/post/item/detail-view?id=${post.postId }" class="mr-5 ml-3 text-dark">
-						<img src="${post.thumbnailPath }" width="300px" height="250px">
+						<img src="${post.thumbNailPath }" width="300px" height="250px">
 						<div>${post.title }</div>
-						<div>${post.starPointCount }</div>
+						<div>${post.count }</div>
 					</a>
 					</c:forEach>
 				</div>		

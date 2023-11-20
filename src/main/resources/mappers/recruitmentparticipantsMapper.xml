@@ -34,6 +34,23 @@
 	
 	</select>
 	
+		<select id="selectCountList" parameterType="map" resultType="com.yesgaori.campinggaja.participants.domain.BestParticipants">
+		
+		SELECT
+			recruitmentPostId
+			, count(1) as `count`
+		FROM
+			`recruitment-participants`
+		GROUP BY
+			`recruitmentPostId`
+		ORDER BY
+			`count` DESC
+		LIMIT
+			3
+		
+	
+	</select>
+	
 	<select id="selectCountParticipantsByUserId" parameterType="map" resultType="int">
 		
 		SELECT

@@ -50,7 +50,7 @@
 		
 	
 	</select>
-	<select id="selectCountList" parameterType="map" resultType="int">
+	<select id="selectCountList" parameterType="map" resultType="com.yesgaori.campinggaja.like.domain.BestLike">
 		
 		SELECT
 			postId

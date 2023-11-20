@@ -16,9 +16,11 @@ import com.yesgaori.campinggaja.post.dto.CampingBestList;
 import com.yesgaori.campinggaja.post.dto.CampingMainList;
 import com.yesgaori.campinggaja.post.dto.EatingDetail;
 import com.yesgaori.campinggaja.post.dto.EatingMainList;
+import com.yesgaori.campinggaja.post.dto.ItemBestList;
 import com.yesgaori.campinggaja.post.dto.ItemDetail;
 import com.yesgaori.campinggaja.post.dto.ItemMainList;
 import com.yesgaori.campinggaja.post.dto.PostDetail;
+import com.yesgaori.campinggaja.post.dto.RecruitmentBestList;
 import com.yesgaori.campinggaja.post.dto.RecruitmentDetail;
 import com.yesgaori.campinggaja.post.dto.RecruitmentMainList;
 import com.yesgaori.campinggaja.post.service.PostService;
@@ -31,7 +33,17 @@ public class PostController {
 	private PostService postService;
 
 	@GetMapping("/main-view")
-	public String timeLine() {
+	public String timeLine(Model model) {
+		
+		List<CampingBestList> bestList1 = postService.campingBestList();
+		List<CampingBestList> bestList2 = postService.eatingBestList();
+		List<ItemBestList> bestList3 = postService.itemBestList();
+		List<RecruitmentBestList> bestList4 = postService.BestParticipantsList();
+		
+		model.addAttribute("bestList1", bestList1);
+		model.addAttribute("bestList2", bestList2);
+		model.addAttribute("bestList3", bestList3);
+		model.addAttribute("bestList4", bestList4);
 		
 		return "/post/main";
 	}
@@ -49,9 +61,8 @@ public class PostController {
 		List<CampingMainList> diaryList = postService.selectDiary();
 		List<CampingBestList> bestList = postService.campingBestList();
 		
-		
 		model.addAttribute("diaryList", diaryList);
-		model.addAttribute("BestList", bestList);
+		model.addAttribute("bestList", bestList);
 			
 			return"/post/diaryMain";
 	}
@@ -83,7 +94,9 @@ public class PostController {
 	public String eatingMainView(Model model) {
 			
 		List<EatingMainList> eatingList = postService.selectEatingList();
+		List<CampingBestList> bestList = postService.eatingBestList();
 		
+		model.addAttribute("bestList", bestList);
 		model.addAttribute("eatingList", eatingList);
 			
 			return"/post/eatingMain";
@@ -114,8 +127,10 @@ public class PostController {
 	public String itemMainView(Model model) {
 			
 		List<ItemMainList> itemList = postService.selectItemList();
-
+		List<ItemBestList> bestList = postService.itemBestList();
+		
 		model.addAttribute("itemList", itemList);
+		model.addAttribute("bestList", bestList);
 			
 			return"/post/itemMain";
 	}
@@ -144,8 +159,11 @@ public class PostController {
 	public String recruitmentMainView(Model model) {
 			
 		List<RecruitmentMainList> recruitmentList = postService.selectRecruitmentList();
+		List<RecruitmentBestList> bestList = postService.BestParticipantsList();
 
 		model.addAttribute("recruitmentList", recruitmentList);
+		model.addAttribute("bestList", bestList);
+		
 			
 			return"/post/recruitmentMain";
 	}

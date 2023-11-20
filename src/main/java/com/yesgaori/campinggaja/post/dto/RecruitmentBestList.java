@@ -11,7 +11,7 @@ public class RecruitmentBestList {
 	
 	private int recruitmentPostId;
 	private int count;
-	private String thumbNailPath;
+	private String thumbnailPath;
 	private String title;
 	
 }

@@ -421,7 +421,7 @@ public class PostService {
 			RecruitmentBestList recruitmentBestList = RecruitmentBestList.builder()
 											.recruitmentPostId(postId)
 											.count(bestparticipants.getCount())
-											.thumbNailPath(recruitment.getThumbnailPath())
+											.thumbnailPath(recruitment.getThumbnailPath())
 											.title(recruitment.getTitle())
 											.build();
 			

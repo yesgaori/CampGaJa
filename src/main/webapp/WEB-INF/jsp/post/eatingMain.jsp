@@ -19,11 +19,12 @@
 			<div id="section2">
 				<h2 class="pt-2 pl-2">인기 캠핑 먹부림</h2>
 				<div class="d-flex">
+					<div class="ml-4"></div>
 					<c:forEach var="post" items="${bestList }">
-					<a href="/post/eating-diary/detail-view?id=${post.postId }&category=2" class="mr-5 ml-3 text-dark">
+					<a href="/post/eating-diary/detail-view?id=${post.postId }&category=2" class="text-dark col-4">
 						<img src="${post.thumbNailPath }" width="300px" height="250px">
-						<div>${post.title }</div>
-						<div>${post.count }</div>
+						<h4 class="col-11 text-truncate">${post.title }</h4>
+						<i class="bi bi-heart-fill">${post.count }</i>
 					</a>
 					</c:forEach>
 				</div>	

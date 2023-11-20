@@ -19,18 +19,19 @@
 			<div id="section4">
 				<h2 class="pt-2 pl-2">인기 캠퍼모집</h2>
 				<div class="d-flex">
+					<div class="ml-4"></div>
 					<c:forEach var="post" items="${bestList }">
-					<a href="/post/recruitment/detail-view?id=${post.recruitmentPostId }" class="mr-5 ml-3 text-dark">
+					<a href="/post/recruitment/detail-view?id=${post.recruitmentPostId }" class="text-dark col-4">
 						<c:choose>
-							<c:when test="${post.thumbNailPath != ''}">
-								<img src="${post.thumbNailPath }" width="300px" height="250px">
+							<c:when test="${post.thumbnailPath != ''}">
+								<img src="${post.thumbnailPath }" width="300px" height="250px">
 							</c:when>
 							<c:otherwise>
 								<div class="bi bi-flag" style="font-size:11rem;" class="border"></div>
 							</c:otherwise>
 						</c:choose>
-						<div>${post.title }</div>
-						<div>${post.count }</div>
+						<h4 class="col-11 text-truncate">${post.title }</h4>
+						<i class="bi bi-people-fill">${post.count }</i>
 					</a>
 					</c:forEach>
 				</div>			

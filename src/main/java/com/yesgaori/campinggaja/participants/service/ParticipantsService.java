@@ -1,14 +1,12 @@
 package com.yesgaori.campinggaja.participants.service;
 
 import java.util.ArrayList;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yesgaori.campinggaja.participants.domain.BestParticipants;
 import com.yesgaori.campinggaja.participants.domain.RecruitmentParticipants;
 import com.yesgaori.campinggaja.participants.dto.ParticipantsAlarm;
 import com.yesgaori.campinggaja.participants.dto.ParticipantsDetail;
@@ -160,5 +158,9 @@ public class ParticipantsService {
 		return participantsAlarmList;
 	}
 	
+	public List<BestParticipants> selectCountList(){
+		
+		return participantsRepository.selectCountList();
+	}
 
 }

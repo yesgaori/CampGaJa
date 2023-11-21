@@ -14,6 +14,7 @@ public class RecruitmentPost {
 	private String appointmentStartDate;
 	private String appointmentEndDate;
 	private int info;
+	private String thumbnailPath;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -70,6 +71,12 @@ public class RecruitmentPost {
 	}
 	public void setInfo(int info) {
 		this.info = info;
+	}
+	public String getThumbnailPath() {
+		return thumbnailPath;
+	}
+	public void setThumbnailPath(String thumbnailPath) {
+		this.thumbnailPath = thumbnailPath;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

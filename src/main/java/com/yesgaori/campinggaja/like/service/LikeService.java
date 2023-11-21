@@ -1,8 +1,11 @@
 package com.yesgaori.campinggaja.like.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yesgaori.campinggaja.like.domain.BestLike;
 import com.yesgaori.campinggaja.like.repository.LikeRepository;
 
 @Service
@@ -18,6 +21,12 @@ public class LikeService {
 	
 	public int countLike(int postId, int category) {
 		return likeRepository.selectCountLike(postId, category);
+	}
+	
+	public List<BestLike> selectCountList(int category){
+		
+		return likeRepository.selectCountList(category);
+		
 	}
 	
 	public boolean isLike(int postId, int userId, int category) {

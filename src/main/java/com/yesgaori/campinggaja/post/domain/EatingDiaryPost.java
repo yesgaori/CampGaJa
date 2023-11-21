@@ -12,6 +12,7 @@ public class EatingDiaryPost {
 	private int userId;
 	private String title;
 	private String content;
+	private String thumbnailPath;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -39,6 +40,12 @@ public class EatingDiaryPost {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getThumbnailPath() {
+		return thumbnailPath;
+	}
+	public void setThumbnailPath(String thumbnailPath) {
+		this.thumbnailPath = thumbnailPath;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

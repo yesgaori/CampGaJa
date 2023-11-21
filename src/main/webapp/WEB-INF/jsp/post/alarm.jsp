@@ -15,7 +15,7 @@
 	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/mainHeader.jsp" />
 		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
-		<section>
+		<section class="mt-5">
 			<c:forEach var="post" items="${postList }">
 				<table class="table text-center">
 					<div">

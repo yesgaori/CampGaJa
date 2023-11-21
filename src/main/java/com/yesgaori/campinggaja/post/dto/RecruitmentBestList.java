@@ -7,13 +7,11 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class EatingMainList {
+public class RecruitmentBestList {
 	
-	private int postId;
-	private String title;
-	private String userName;
-	private int likeCount;
+	private int recruitmentPostId;
+	private int count;
 	private String thumbnailPath;
-	private Date createdAt;
+	private String title;
 	
 }

@@ -2,13 +2,11 @@ package com.yesgaori.campinggaja.participants.repository;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.yesgaori.campinggaja.participants.domain.BestParticipants;
 import com.yesgaori.campinggaja.participants.domain.RecruitmentParticipants;
-import com.yesgaori.campinggaja.post.domain.RecruitmentPost;
-import com.yesgaori.campinggaja.post.repository.PostRepository;
 
 @Repository
 public interface ParticipantsRepository {
@@ -42,6 +40,6 @@ public interface ParticipantsRepository {
 	public int deleteParticipantsByPost(@Param("participantsId") int participantsId);
 	
 
-	
+	public List<BestParticipants> selectCountList();
 	
 }

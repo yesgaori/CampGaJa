@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.yesgaori.campinggaja.starpoint.domain.BestStarPoint;
 import com.yesgaori.campinggaja.starpoint.domain.StarPoint;
 
 @Repository
@@ -23,8 +24,9 @@ public interface StarPointRepository {
 			, @Param("content") String content
 			, @Param("starPoint") double starPoint);
 	
-	public List<StarPoint> selectStarPointList(@Param("postId") int postId
-											);
+	public List<StarPoint> selectStarPointList(@Param("postId") int postId);
+	
+	public List<BestStarPoint>selectCountList();
 	
 	
 	public int deleteStarPointByPost(@Param("postId") int postId);

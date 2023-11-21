@@ -1,6 +1,8 @@
 package com.yesgaori.campinggaja.post.dto;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -13,6 +15,7 @@ public class CampingMainList {
 	private String title;
 	private String userName;
 	private int likeCount;
+	private String thumbnailPath;
 	private Date createdAt;
-	
+
 }

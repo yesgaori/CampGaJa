@@ -7,14 +7,11 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ItemMainList {
+public class CampingBestList {
 	
 	private int postId;
+	private int count;
+	private String thumbNailPath;
 	private String title;
-	private String userName;
-	private int starPointCount;
-	private double averagePoint;
-	private String thumbnailPath;
-	private Date createdAt;
 	
 }

@@ -17,7 +17,17 @@
 		<c:import url="/WEB-INF/jsp/include/nav.jsp" />
 		<section>
 			<div id="section3">
-				<h2 class="pt-2 pl-2">인기 장비추천</h2>	
+				<h2 class="pt-2 pl-2">인기 장비추천</h2>
+				<div class="d-flex">
+					<div class="ml-4"></div>
+					<c:forEach var="post" items="${bestList }">
+					<a href="/post/item/detail-view?id=${post.postId }" class="text-dark col-4">
+						<img src="${post.thumbNailPath }" width="300px" height="250px">
+						<h4 class="col-11 text-truncate">${post.title }</h4>
+						<i class="bi bi-people-fill">${post.count }</i>
+					</a>
+					</c:forEach>
+				</div>		
 			</div>
 			<div class="d-flex">
 				<table class="table text-center">

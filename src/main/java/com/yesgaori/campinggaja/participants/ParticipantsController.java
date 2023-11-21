@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.yesgaori.campinggaja.participants.dto.ParticipantsAlarm;
 import com.yesgaori.campinggaja.participants.service.ParticipantsService;
 import com.yesgaori.campinggaja.post.domain.RecruitmentPost;

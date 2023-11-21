@@ -10,6 +10,7 @@ public class ItemPost {
 	private String title;
 	private String content;
 	private double starPoint;
+	private String thumbnailPath;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -42,6 +43,12 @@ public class ItemPost {
 	}
 	public void setStarPoint(double starPoint) {
 		this.starPoint = starPoint;
+	}
+	public String getThumbnailPath() {
+		return thumbnailPath;
+	}
+	public void setThumbnailPath(String thumbnailPath) {
+		this.thumbnailPath = thumbnailPath;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

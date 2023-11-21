@@ -12,6 +12,7 @@ public class CampingDiaryPost {
 	private String title;
 	private String content;
 	private String mapPath;
+	private String thumbnailPath;
 	private Date createdAt;
 	private Date updatedAt;
 	
@@ -45,6 +46,12 @@ public class CampingDiaryPost {
 	}
 	public void setMapPath(String mapPath) {
 		this.mapPath = mapPath;
+	}
+	public String getThumbnailPath() {
+		return thumbnailPath;
+	}
+	public void setThumbnailPath(String thumbnailPath) {
+		this.thumbnailPath = thumbnailPath;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

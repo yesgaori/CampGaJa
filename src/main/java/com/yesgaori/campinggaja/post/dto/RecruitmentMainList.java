@@ -19,6 +19,7 @@ public class RecruitmentMainList {
 	private String mapPath;
 	private String startDate;
 	private String endDate;
+	private String thumbnailPath;
 	private Date createdAt;
 	
 		

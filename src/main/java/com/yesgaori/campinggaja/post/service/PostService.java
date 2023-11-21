@@ -1,7 +1,6 @@
 package com.yesgaori.campinggaja.post.service;
 
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,22 +11,28 @@ import org.springframework.web.multipart.MultipartFile;
 import com.yesgaori.campinggaja.comment.dto.CommentDetail;
 import com.yesgaori.campinggaja.comment.service.CommentService;
 import com.yesgaori.campinggaja.common.FileManager;
+import com.yesgaori.campinggaja.like.domain.BestLike;
 import com.yesgaori.campinggaja.like.service.LikeService;
+import com.yesgaori.campinggaja.participants.domain.BestParticipants;
 import com.yesgaori.campinggaja.participants.dto.ParticipantsDetail;
 import com.yesgaori.campinggaja.participants.service.ParticipantsService;
 import com.yesgaori.campinggaja.post.domain.CampingDiaryPost;
 import com.yesgaori.campinggaja.post.domain.EatingDiaryPost;
 import com.yesgaori.campinggaja.post.domain.ItemPost;
 import com.yesgaori.campinggaja.post.domain.RecruitmentPost;
+import com.yesgaori.campinggaja.post.dto.CampingBestList;
 import com.yesgaori.campinggaja.post.dto.CampingMainList;
 import com.yesgaori.campinggaja.post.dto.EatingDetail;
 import com.yesgaori.campinggaja.post.dto.EatingMainList;
+import com.yesgaori.campinggaja.post.dto.ItemBestList;
 import com.yesgaori.campinggaja.post.dto.ItemDetail;
 import com.yesgaori.campinggaja.post.dto.ItemMainList;
 import com.yesgaori.campinggaja.post.dto.PostDetail;
+import com.yesgaori.campinggaja.post.dto.RecruitmentBestList;
 import com.yesgaori.campinggaja.post.dto.RecruitmentDetail;
 import com.yesgaori.campinggaja.post.dto.RecruitmentMainList;
 import com.yesgaori.campinggaja.post.repository.PostRepository;
+import com.yesgaori.campinggaja.starpoint.domain.BestStarPoint;
 import com.yesgaori.campinggaja.starpoint.dto.StarPointDetail;
 import com.yesgaori.campinggaja.starpoint.service.StarPointService;
 import com.yesgaori.campinggaja.user.domain.User;
@@ -49,10 +54,10 @@ public class PostService {
 	@Autowired
 	private ParticipantsService participantsService;
 	
-	public int creatDiaryPost(int userId, String title, String content, String mapPath) {
+	public int creatDiaryPost(int userId, String title, String content, String mapPath, String thumbnailPath) {
 		
 		
-		return postRepository.creatDiaryPost(userId, title, content, mapPath);
+		return postRepository.creatDiaryPost(userId, title, content, mapPath, thumbnailPath);
 		
 	}
 	
@@ -64,10 +69,37 @@ public class PostService {
 		
 	}
 	
+	public List<CampingBestList> campingBestList(){
+		
+		List<BestLike> result = likeService.selectCountList(1);
+		
+		List<CampingBestList> success = new ArrayList<>();
+		
+		for(BestLike bestLike:result) {
+			
+			int postId = bestLike.getPostId();
+			
+			CampingDiaryPost camping = postRepository.selectDetail(postId);
+			
+			CampingBestList campingBestList = CampingBestList.builder()
+											.postId(postId)
+											.count(bestLike.getCount())
+											.thumbNailPath(camping.getThumbnailPath())
+											.title(camping.getTitle())
+											.build();
+			
+			success.add(campingBestList);
+			
+		}
+		return success;
+		
+	}
+	
 	public List<CampingMainList> selectDiary() {
 		
 		List<CampingMainList> campingMain = new ArrayList<>(); 
 		List<CampingDiaryPost> campingDiaryPostList = postRepository.selectDiary();
+		
 		
 		for(CampingDiaryPost campingDiaryPost:campingDiaryPostList) {
 		
@@ -75,12 +107,13 @@ public class PostService {
 			
 				
 			User user = userService.getUserById(campingDiaryPost.getUserId());
-			
+	
 			CampingMainList campingMainList = CampingMainList.builder()
 										.postId(campingDiaryPost.getId())
 										.title(campingDiaryPost.getTitle())
 										.userName(user.getName())
 										.likeCount(count)
+										.thumbnailPath(campingDiaryPost.getThumbnailPath())
 										.createdAt(campingDiaryPost.getCreatedAt())
 										.build();
 			
@@ -129,13 +162,38 @@ public class PostService {
 		
 	}
 	
-	public int creatEatingPost(int userId, String title, String content) {
+	public int creatEatingPost(int userId, String title, String content, String thumbnailPath) {
 		
 		
-		return postRepository.creatEatingPost(userId, title, content);
+		return postRepository.creatEatingPost(userId, title, content, thumbnailPath);
 		
 	}
 	
+	public List<CampingBestList> eatingBestList(){
+		
+		List<BestLike> result = likeService.selectCountList(2);
+		
+		List<CampingBestList> success = new ArrayList<>();
+		
+		for(BestLike bestLike:result) {
+			
+			int postId = bestLike.getPostId();
+			
+			EatingDiaryPost eating = postRepository.selectEating(postId);
+			
+			CampingBestList campingBestList = CampingBestList.builder()
+											.postId(postId)
+											.count(bestLike.getCount())
+											.thumbNailPath(eating.getThumbnailPath())
+											.title(eating.getTitle())
+											.build();
+			
+			success.add(campingBestList);
+			
+		}
+		return success;
+		
+	}
 	
 	public List<EatingMainList> selectEatingList() {
 		
@@ -154,6 +212,7 @@ public class PostService {
 										.title(eatingDiaryPost.getTitle())
 										.userName(user.getName())
 										.likeCount(count)
+										.thumbnailPath(eatingDiaryPost.getThumbnailPath())
 										.createdAt(eatingDiaryPost.getCreatedAt())
 										.build();
 			
@@ -161,7 +220,9 @@ public class PostService {
 		}
 			return eatingMain;
 	}
-		
+	
+	
+	
 	public EatingDiaryPost selectEating(int id) {
 		
 		return postRepository.selectEating(id);
@@ -201,11 +262,37 @@ public class PostService {
 		
 	}
 	
-	public int creatItemPost(int userId, String title, String content, double starPoint) {
+	public int creatItemPost(int userId, String title, String content, double starPoint, String thumbnailPath) {
 		
 		
-		return postRepository.creatItemPost(userId, title, content, starPoint);
+		return postRepository.creatItemPost(userId, title, content, starPoint, thumbnailPath);
 		
+	}
+	
+	public List<ItemBestList> itemBestList(){
+		
+		List<BestStarPoint> result = starPointService.selectCountList();
+		
+		List<ItemBestList> success = new ArrayList<>();
+		
+		for(BestStarPoint bestStarPoint:result) {
+			
+			int postId = bestStarPoint.getItemPostId();
+			
+			ItemPost item = postRepository.selectItem(postId);
+			
+			ItemBestList itemBestList = ItemBestList.builder()
+											.postId(postId)
+											.count(bestStarPoint.getCount())
+											.thumbNailPath(item.getThumbnailPath())
+											.title(item.getTitle())
+											.build();
+			
+			success.add(itemBestList);
+			
+		}
+		
+		return success;
 	}
 	
 	
@@ -232,7 +319,9 @@ public class PostService {
 										.postId(itemPost.getId())
 										.title(itemPost.getTitle())
 										.userName(user.getName())
+										.starPointCount(starPointCount)
 										.averagePoint((averagePoint + itemPost.getStarPoint())/(starPointCount + 1))
+										.thumbnailPath(itemPost.getThumbnailPath())
 										.createdAt(itemPost.getCreatedAt())
 										.build();
 			
@@ -300,7 +389,8 @@ public class PostService {
 									, int personnel
 									, String appointmentStartDate
 									, String appointmentEndDate
-									, int info) {
+									, int info
+									, String thumbnailPath) {
 		
 		
 		return postRepository.creatRecruitment(
@@ -311,8 +401,35 @@ public class PostService {
 													, personnel
 													, appointmentStartDate
 													, appointmentEndDate
-													, info);
+													, info
+													, thumbnailPath);
 		
+	}
+	
+	public List<RecruitmentBestList> BestParticipantsList(){
+		
+		List<BestParticipants> result = participantsService.selectCountList();
+		
+		List<RecruitmentBestList> success = new ArrayList<>();
+		
+		for(BestParticipants bestparticipants:result) {
+			
+			int postId = bestparticipants.getRecruitmentPostId();
+			
+			RecruitmentPost recruitment = postRepository.selectRecruitment(postId);
+			
+			RecruitmentBestList recruitmentBestList = RecruitmentBestList.builder()
+											.recruitmentPostId(postId)
+											.count(bestparticipants.getCount())
+											.thumbnailPath(recruitment.getThumbnailPath())
+											.title(recruitment.getTitle())
+											.build();
+			
+			success.add(recruitmentBestList);
+			
+		}
+		
+		return success;
 	}
 	
 	
@@ -339,6 +456,7 @@ public class PostService {
 													.mapPath(post.getMapPath())
 													.startDate(post.getAppointmentStartDate())
 													.endDate(post.getAppointmentEndDate())
+													.thumbnailPath(post.getThumbnailPath())
 													.createdAt(post.getCreatedAt())
 													.build();
 			
@@ -394,5 +512,10 @@ public class PostService {
 	
 		return recruitmentDetail;
 		
+	}
+	
+	public int inquiryCreate(int userId, String inquiry) {
+		
+		return postRepository.inquiryCreate(userId, inquiry);
 	}
 }

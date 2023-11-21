@@ -62,6 +62,8 @@
 	
 	var mapPath;
 	
+	var thumbnailPath = "";
+	
 	   $(function() {
 	       //input을 datepicker로 선언
 	       $("#datepicker1,#datepicker2").datepicker({
@@ -206,20 +208,23 @@
 
 
             $.ajax({ 
-	         data:data, 
-	         type:"POST", 
-	         url:"/post/image-upload",  
-	         contentType:false, 
-	         processData:false, 
-	         success:function(data){ 
+	         data:data 
+	         , type:"POST" 
+	         , url:"/post/image-upload"  
+	         , contentType:false 
+	         , processData:false 
+	         , success:function(data){ 
 				if(data.url != null){
 					$(editor).summernote("insertImage",data.url); 
+					if(thumbnailPath == ""){
+						thumbnailPath = data.url;
+					}
 				} else{
 					alert("이미지 저장 실패");
 				};
 				
-	         },
-	         error:function(){
+	         }
+	         , error:function(){
 	        	 alert("이미지 저장 오류");
 	         }
 	
@@ -235,7 +240,7 @@
 			let appointmentStartDate = $("#datepicker1").val();
 			let appointmentEndDate = $("#datepicker2").val();
 			let personnel = $("#personnel").val();
-			
+			let info = 0;
 			
 			if(title == "") {
 				alert("제목을 입력하세요");
@@ -250,9 +255,9 @@
 				
 			
 			$.ajax({
-				type:"post"
+				type:"POST"
 				, url:"/post/recruitment/create"
-				, data:{"title":title, "content":content, "mapPath":mapPath, "personnel":personnel, "appointmentStartDate":appointmentStartDate, "appointmentEndDate":appointmentEndDate, "info":0}
+				, data:{"title":title, "content":content, "mapPath":mapPath, "personnel":personnel, "appointmentStartDate":appointmentStartDate, "appointmentEndDate":appointmentEndDate, "info":info, "thumbnailPath":thumbnailPath}
 				, success:function(data) {
 					if(data.result == "success") {
 						location.href = "/post/main/recruitment-view";

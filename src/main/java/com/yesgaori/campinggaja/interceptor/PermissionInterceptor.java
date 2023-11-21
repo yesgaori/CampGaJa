@@ -37,7 +37,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
 		} else { //로그인이 돼있는 경우 / user로 시작하는 주소로 접근하는 경우 페이지 이동을 막고 리스트 페이지로 이동
 			if(uri.startsWith("/user")) {
 				
-				response.sendRedirect("/post/list-view");
+				response.sendRedirect("/post/main-view");
 				
 				return false;
 			}
